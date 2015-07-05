@@ -9,7 +9,7 @@ var express = require('express'),
 	//servers = require('https').createServer(credentials,app),
 	io = require('socket.io').listen(server);
 
-var operatorstate = [
+var operatorstate = {
 	"ross.haskell.demo": {
 		"boldchat": "Available",
 		"boldchatsessions": 3,
@@ -45,7 +45,7 @@ var operatorstate = [
 		"voicesessions": 1,
 		"universal": "Blended"
 	}
-];
+};
 
 	
 server.listen(3000);
