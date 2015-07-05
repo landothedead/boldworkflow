@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <style>
+	body {
+		background-color: gray;
+		padding: 10px;
+	}
+	#logbutton {
+		display: none;
+		background-color: red;
+		padding: 10px;
+		width:15%;
+		display: inline-block;
+	}
+	#operatorstateframe {
+		background-color: gray;
+		padding: 10px;
+		width:100%;
+		max-height: 500px;
+		display: inline-block;
+	}
+	#operatorstate {
+		background-color: gray;
+		padding: 10px;
+		width:100%;
+		display: inline-block;
+	}
+	.operatorstateentry {
+		background-color: blue;
+		color: white;
+		margin: 10px;
+		padding: 10px;
+	}
+	#eventlogframe {
+		background-color: gray;
+		padding: 10px;
+		width:100%;
+		max-height: 500px;
+		display: inline-block;
+	}
+	#eventlog {
+		background-color: gray;
+		padding: 10px;
+		width:100%;
+		display: inline-block;
+	}
+	.eventlogentry {
+		background-color: green;
+		margin: 10px;
+		padding: 10px;
+	}
+	.universalstatewrapper {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		width: 250px;
+		background-color: red;
+		color: black;
+		float: right;
+	}.universalstate {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		background-color: red;
+		color: black;
+		float: right;
+	}
+	.boldchatstatewrapper {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		width: 350px;
+		background-color: yellow;
+		color: black;
+		float: right;
+	}
+	.boldchatstate {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		background-color: yellow;
+		color: black;
+		float: right;
+	}
+	.boldchatstateactivity {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		background-color: black;
+		color: yellow;
+		float: right;
+	}
+	.voicestatewrapper {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		width: 300px;
+		background-color: purple;
+		color: white;
+		float: right;
+	}
+	.voicestate {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		background-color: purple;
+		color: white;
+		float: right;
+	}
+	.voicestateactivity {
+		padding-left:  10px;
+		padding-right:  10px;
+		margin-left: 10px;
+		background-color: white;
+		color: purple;
+		float: right;
+	}
+	.timedate {
+		padding-left:  5px;
+		padding-right:  5px;
+		margin-left: 5px;
+		background-color: yellow;
+		color: black;
+		float: right;
+	}
+  </style>
+  <title>Workflow Demonstration</title>
+ </head>
+ <body>
+	<div id="operatorstateframe">
+		<center><h2>Operator State</h2></center><br>
+		<div id="operatorstate">
+			<div class="operatorstateentry">
+				<span class="uid">ross.haskell.demo</span>
+				<span class="voicestatewrapper">
+					Voice State: 
+					<span class="voicestateactivity">
+						No Call
+					</span>
+					<span class="voicestate">
+						Away
+					</span>
+
+				</span>
+				<span class="boldchatstatewrapper">
+					BoldChat State: 
+					<span class="boldchatstateactivity">
+						1 chat(s)
+					</span>
+					<span class="boldchatstate">
+						Available
+					</span>
+				</span>
+				<span class="universalstatewrapper">
+					Universal Agent State:
+					<span class="universalstate">
+						Chat
+					</span>
+				</span>
+			</div>
+			<div class="operatorstateentry">
+				<span class="uid">mark.troyer.demo</span>
+								<span class="voicestatewrapper">
+					Voice State: 
+					<span class="voicestateactivity">
+						No Call
+					</span>
+					<span class="voicestate">
+						Away
+					</span>
+
+				</span>
+				<span class="boldchatstatewrapper">
+					BoldChat State: 
+					<span class="boldchatstateactivity">
+						2 chat(s)
+					</span>
+					<span class="boldchatstate">
+						Available
+					</span>
+				</span>
+				<span class="universalstatewrapper">
+					Universal Agent State:
+					<span class="universalstate">
+						Blended
+					</span>
+				</span>
+				
+			</div>
+			<div class="operatorstateentry">
+				<span class="uid">coty.smith.demo</span>
+								<span class="voicestatewrapper">
+					Voice State: 
+					<span class="voicestateactivity">
+						Call
+					</span>
+					<span class="voicestate">
+						Available
+					</span>
+
+				</span>
+				<span class="boldchatstatewrapper">
+					BoldChat State: 
+					<span class="boldchatstateactivity">
+						No chat(s)
+					</span>
+					<span class="boldchatstate">
+						Away
+					</span>
+				</span>
+				<span class="universalstatewrapper">
+					Universal Agent State:
+					<span class="universalstate">
+						Blended
+					</span>
+				</span>
+				
+			</div>
+			<div class="operatorstateentry">
+				<span class="uid">david.hammer.demo</span>
+								<span class="voicestatewrapper">
+					Voice State: 
+					<span class="voicestateactivity">
+						No Call
+					</span>
+					<span class="voicestate">
+						Available
+					</span>
+
+				</span>
+				<span class="boldchatstatewrapper">
+					BoldChat State: 
+					<span class="boldchatstateactivity">
+						No chat(s)
+					</span>
+					<span class="boldchatstate">
+						Logged Out
+					</span>
+				</span>
+				<span class="universalstatewrapper">
+					Universal Agent State:
+					<span class="universalstate">
+						Voice
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	Note:  The Universal Agent State of a given operator can be toggled by clicking the Chat/Voice/Blended/Away text above.
+	<div id="eventlogframe">
+		<center><h2>Event Log</h2></center><br>
+		<div id="eventlog">
+		
+		</div>
+	</div>
+
+
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		jQuery(function($){
+			var socket = io.connect();
+
+			// Code to change Universal Operator State
+			$(".universalstate").each(function() {
+				$(this).click(function(e){
+					var uid = $(this).parent().parent().find(".uid").html();
+					if ($(this).html() == "Chat")  {
+						var channel = "Voice";
+					} else if ($(this).html() == "Voice")  {
+						var channel = "Blended";
+					} else if ($(this).html() == "Blended")  {
+						var channel = "Away";
+					} else {
+						var channel = "Chat";
+					}
+					socket.emit('changeuniversalstate', { "uid": uid, "channel": channel});
+				});
+			});
+
+			socket.on('updateuxchangeuniversalstate', function(data){
+				$(".uid:contains('"+data.uid+"')").parent().find(".universalstate").html(data.channel);
+			});
+
+			socket.on('updateuxchangeboldchatstate', function(data){
+				$(".uid:contains('"+data.uid+"')").parent().find(".boldchatstate").html(data.boldchatstate);
+			});
+
+			socket.on('updateuxchangevoicestate', function(data){
+				$(".uid:contains('"+data.uid+"')").parent().find(".voicestate").html(data.voicestate);
+			});
+
+			socket.on('appendlog', function(data){
+				$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span></div>');
+			});
+		});
+	</script>
+
+
+ </body>
+</html>
