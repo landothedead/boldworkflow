@@ -86,7 +86,7 @@ setInterval (function () {
 		}
 		console.info("Generatiing random operator state change, operator=mark.troyer.demo, state="+state);
 		makePOSTCall({ "method": "voiceOperatorUpdate", "operator": "mark.troyer.demo", "state": state});
-}, Math.floor((Math.random() * 3000) + 1000));
+}, Math.floor((Math.random() * 5000) + 5000));
 
 // Simulate generation of new voice calls
 /*

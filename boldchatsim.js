@@ -85,7 +85,7 @@ setInterval (function () {
 		var routeID = Math.floor((Math.random() * 10000) + 10000); 
 		console.info("Generatiing random routing request, routeID="+routeID);
 		makePOSTCall({ "method": "boldchatRoutingRequest", "routeID": routeID, "routeData": "xxxx=11111&yyyy=22222"});
-}, Math.floor((Math.random() * 10000) + 10000));
+}, Math.floor((Math.random() * 5000) + 5000));
 
 setInterval (function () {
 		if (Math.random() > 0.5) {
@@ -95,4 +95,4 @@ setInterval (function () {
 		}
 		console.info("Generatiing random operator state change, operator=mark.troyer.demo, state="+state);
 		makePOSTCall({ "method": "boldchatOperatorUpdate", "operator": "mark.troyer.demo", "state": state});
-}, Math.floor((Math.random() * 3000) + 1000));
+}, Math.floor((Math.random() * 5000) + 5000));
