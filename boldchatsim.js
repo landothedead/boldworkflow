@@ -22,7 +22,7 @@ server.listen(3001);
 
 // Wrapper function to simulated GET microservice
 function makeGETCall(getString) {
-	var optionsget = { host : 'localhost', port : 3000, path : '/get', method : 'GET'};
+	var optionsget = { host : 'boldworkflow', port : 80, path : '/get', method : 'GET'};
 	var requestGet = http.request(optionsget, function(res) {
 		console.log("statusCode: ", res.statusCode);
 		res.on('data', function(d) {
@@ -41,7 +41,7 @@ function makeGETCall(getString) {
 function makePOSTCall(postObject) {
 	var jsonPostObject = JSON.stringify(postObject);
 	var postHeaders = {'Content-Type' : 'application/json','Content-Length' : Buffer.byteLength(jsonPostObject, 'utf8')};
-	var optionspost = { host : 'localhost', port : 3000, path : '/post', method : 'POST', headers : postHeaders };
+	var optionspost = { host : 'boldworkflow.herokuapp.com', port : 80, path : '/post', method : 'POST', headers : postHeaders };
 	//console.info(optionspost);
 	var reqPost = http.request(optionspost, function(res) {
 		//console.log("statusCode: ", res.statusCode);

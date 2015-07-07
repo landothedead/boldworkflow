@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-server.listen(3002);
+server.listen(3003);
 //servers.listen(3445);
 
 // Wrapper function to simulated GET microservice
@@ -41,7 +41,7 @@ function makeGETCall(getString) {
 function makePOSTCall(postObject) {
 	var jsonPostObject = JSON.stringify(postObject);
 	var postHeaders = {'Content-Type' : 'application/json','Content-Length' : Buffer.byteLength(jsonPostObject, 'utf8')};
-	var optionspost = { host : 'localhost', port : 3000, path : '/post', method : 'POST', headers : postHeaders };;
+	var optionspost = { host : 'boldworkflow.herokuapp.com', port : 80, path : '/post', method : 'POST', headers : postHeaders };;
 	var reqPost = http.request(optionspost, function(res) {
 		res.on('data', function(d) {
 			//console.info('POST result:\n');
