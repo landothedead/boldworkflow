@@ -95,4 +95,4 @@ setInterval (function () {
 		}
 		console.info("Generatiing random operator state change, operator=mark.troyer.demo, state="+state);
 		makePOSTCall({ "method": "boldchatOperatorUpdate", "operator": "mark.troyer.demo", "state": state});
-}, Math.floor((Math.random() * 10000) + 10000));
+}, Math.floor((Math.random() * 3000) + 1000));

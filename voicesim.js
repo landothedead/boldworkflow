@@ -86,7 +86,7 @@ setInterval (function () {
 		}
 		console.info("Generatiing random operator state change, operator=mark.troyer.demo, state="+state);
 		makePOSTCall({ "method": "voiceOperatorUpdate", "operator": "mark.troyer.demo", "state": state});
-}, Math.floor((Math.random() * 10000) + 10000));
+}, Math.floor((Math.random() * 3000) + 1000));
 
 // Simulate generation of new voice calls
 /*
@@ -98,5 +98,5 @@ setInterval (function () {
 		}
 		console.info("Generatiing random call state change, operator=mark.troyer.demo, state="+state);
 		makePOSTCall({ "method": "voiceOperatorUpdate", "operator": "mark.troyer.demo", "state": state});
-}, Math.floor((Math.random() * 10000) + 10000));
+}, Math.floor((Math.random() * 3000) + 1000));
 */
