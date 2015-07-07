@@ -293,7 +293,7 @@
 
 			socket.on('appendlog', function(data){
 				var count = $("#eventlog").children().length;
-				if (count > 4) {
+				if (count > 2) {
 					$('#eventlog div.eventlogentry:last-child').remove();
 				}
 				$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span></div>');

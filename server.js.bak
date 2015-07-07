@@ -115,7 +115,7 @@ function makeVoiceGETCall(getString) {
 function makeVoicePOSTCall(postObject) {
 	var jsonPostObject = JSON.stringify(postObject);
 	var postHeaders = {'Content-Type' : 'application/json','Content-Length' : Buffer.byteLength(jsonPostObject, 'utf8')};
-	var optionspost = { host : 'localhost', port : 3002, path : '/post', method : 'POST', headers : postHeaders };
+	var optionspost = { host : 'localhost', port : 3002, path : '/post' method : 'POST', headers : postHeaders };
 	var reqPost = https.request(optionspost, function(res) {
 		console.log("statusCode: ", res.statusCode);
 		res.on('data', function(d) {
