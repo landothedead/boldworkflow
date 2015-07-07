@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-
-server.listen(3000);
+var port = Number(process.env.PORT || 3000);
+server.listen(port);
 //servers.listen(3443);
 
 
