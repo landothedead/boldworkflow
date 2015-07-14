@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha512.js"></script>
+
+	<script type="text/javascript">
+
+		var accountId ="724478916710972946";
+		var apiKeyId ="46612343070928403";
+		var apiKey ="//PnDisDiTv8WfgaN11Ny+k9CgIRhb2tiIYfUHxGTawtl2bphm4n+BOQU9Q2yJF72v3xmf1LZn2N5oCYaFZHMg==";
+
+		var requestType ="getFolders";
+
+		var auth = accountId + ':' + apiKeyId + ':' + (new Date()).getTime();
+		var authHash = auth + ':' + CryptoJS.SHA512(auth + apiKey).toString(CryptoJS.enc.Hex);
+		var location = "https://mark.boldchat.com/aid/" + accountId + "/data/rest/json/v1/" + requestType + "?auth=" + authHash;
+	</script>
+</head>
+<body>
+
+</body>
+</html>
