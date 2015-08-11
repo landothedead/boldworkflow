@@ -3,7 +3,7 @@ var http = require('http');
 var fs = require('fs');
 //var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
 //var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-var credentials = {key: "123", cert: "123"};
+//var credentials = {key: "123", cert: "123"};
 
 var express = require('express'),
 	app = express(),
@@ -105,6 +105,14 @@ function makeVoicePOSTCall(postObject) {
 	});
 }
 
+	// POST based BoldChat Triggers
+	app.post('/trigger', function(req, res){
+		if (typeof req.body.method !== 'undefined') {
+			console.log(res);
+			console.log("\n\n");
+		}
+	}
+
 	// POST based microservices events
 	app.post('/post', function(req, res){
 		if (typeof req.body.method !== 'undefined') {
@@ -200,7 +208,16 @@ function makeVoicePOSTCall(postObject) {
 				io.sockets.emit('appendlog', data);
 			}
 		} else {
-			res.send('BoldChat Push-to-url API NOT responding.  No method tuple in body.');
+			logMessage = "Unrecognized /post event. ";
+			res.send({ "result": "error", "error": "no method"});
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			data.req = req;
+			date.res = res;
+			io.sockets.emit('appendlog', data);
 		}
 	});
 
