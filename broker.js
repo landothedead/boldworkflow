@@ -111,7 +111,7 @@ function makeVoicePOSTCall(postObject) {
 			console.log(res);
 			console.log("\n\n");
 		}
-	}
+	});
 
 	// POST based microservices events
 	app.post('/post', function(req, res){
