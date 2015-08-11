@@ -107,6 +107,7 @@ function makeVoicePOSTCall(postObject) {
 
 	// POST based BoldChat Triggers
 	app.post('/trigger', function(req, res){
+		console.log(req.body);
 		if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' ) || (typeof req.body.ChatType !== 'undefined' )) {
 			if (typeof req.body.ChatType !== 'undefined' )  {
 				logMessage = "Event: Chats, Hidden Asynch Action";
