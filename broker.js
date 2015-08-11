@@ -107,9 +107,45 @@ function makeVoicePOSTCall(postObject) {
 
 	// POST based BoldChat Triggers
 	app.post('/trigger', function(req, res){
-		if (typeof req.body.method !== 'undefined') {
-			console.log(res);
-			console.log("\n\n");
+		if (typeof req.body.StatusType !== 'undefined') {
+			if (req.body.StatusType == "1")  {
+				logMessage = "Event: Chats, Hidden Asynch Action";
+				res.send({ "result": "success" });
+				console.log(logMessage);
+				var date = new Date();
+				var data = {};
+				data.datetime= date.toISOString();
+				data.log = logMessage;
+				io.sockets.emit('appendlog', data);
+			} else if (req.body.StatusType == "2")  {
+				logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+")";
+				res.send({ "result": "success" });
+				console.log(logMessage);
+				var date = new Date();
+				var data = {};
+				data.datetime= date.toISOString();
+				data.log = logMessage;
+				io.sockets.emit('appendlog', data);
+			}  else if (req.body.StatusType == "3")  {
+				logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+")";
+				res.send({ "result": "success" });
+				console.log(logMessage);
+				var date = new Date();
+				var data = {};
+				data.datetime= date.toISOString();
+				data.log = logMessage;
+				io.sockets.emit('appendlog', data);
+			}
+		} else {
+			logMessage = "Unrecognized /trigger event. ";
+			res.send({ "result": "error", "error": "no method"});
+			console.log(req.body);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			data.body = req.body;
+			io.sockets.emit('appendlog', data);
 		}
 	});
 
@@ -134,18 +170,7 @@ function makeVoicePOSTCall(postObject) {
 				console.log(" ");
 				io.sockets.emit('appendlog', data);
 				
-			} else if (req.body.method == "boldchatOperatorUpdate")  {
-				logMessage = "Incoming BoldChat operator state change: operrator="+req.body.operator+", state="+req.body.state;
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.boldchatstate = req.body.state;
-				data.uid = req.body.operator;
-				io.sockets.emit('updateuxchangeboldchatstate', data);
-				io.sockets.emit('appendlog', data);
+
 			} else if (req.body.method == "boldchatSessionStarted")  {
 				logMessage = "/post, method boldchatSessionStarted received.";
 				res.send({ "result": "success" });
