@@ -107,8 +107,8 @@ function makeVoicePOSTCall(postObject) {
 
 	// POST based BoldChat Triggers
 	app.post('/trigger', function(req, res){
-		if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' )) {
-			if (req.body.StatusType == "0")  {
+		if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' ) || (typeof req.body.ChatType !== 'undefined' )) {
+			if (typeof req.body.ChatType !== 'undefined' )  {
 				logMessage = "Event: Chats, Hidden Asynch Action";
 				res.send({ "result": "success" });
 				console.log(logMessage);
@@ -116,6 +116,7 @@ function makeVoicePOSTCall(postObject) {
 				var data = {};
 				data.datetime= date.toISOString();
 				data.log = logMessage;
+				data.body = req.body;
 				io.sockets.emit('appendlog', data);
 			} else if (typeof req.body.ActiveChats !== 'undefined' ) {
 				logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
@@ -125,6 +126,7 @@ function makeVoicePOSTCall(postObject) {
 				var data = {};
 				data.datetime= date.toISOString();
 				data.log = logMessage;
+				data.body = req.body;
 				io.sockets.emit('appendlog', data);
 			}  else if (req.body.StatusType == "3")  {
 				logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+")";
@@ -134,6 +136,7 @@ function makeVoicePOSTCall(postObject) {
 				var data = {};
 				data.datetime= date.toISOString();
 				data.log = logMessage;
+				data.body = req.body;
 				io.sockets.emit('appendlog', data);
 			}
 		} else {
