@@ -129,8 +129,8 @@ function makeVoicePOSTCall(postObject) {
 				data.log = logMessage;
 				data.body = req.body;
 				io.sockets.emit('appendlog', data);
-			}  else if (req.body.StatusType == "3")  {
-				logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+")";
+			}  else if (typeof req.body.StatusType !== 'undefined' )  {
+				logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+","+req.body.StatusType+")";
 				res.send({ "result": "success" });
 				console.log(logMessage);
 				var date = new Date();
