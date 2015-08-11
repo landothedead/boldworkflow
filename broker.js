@@ -216,7 +216,7 @@ function makeVoicePOSTCall(postObject) {
 			data.datetime= date.toISOString();
 			data.log = logMessage;
 			//data.req = req;
-			//date.res = res;
+			date.res = res;
 			io.sockets.emit('appendlog', data);
 		}
 	});
