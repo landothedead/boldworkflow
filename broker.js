@@ -208,15 +208,15 @@ function makeVoicePOSTCall(postObject) {
 				io.sockets.emit('appendlog', data);
 			}
 		} else {
-			logMessage = "Unrecognized /post event. "+JSON.stringify(req);
+			logMessage = "Unrecognized /post event. ";
 			res.send({ "result": "error", "error": "no method"});
 			console.log(logMessage);
 			var date = new Date();
 			var data = {};
 			data.datetime= date.toISOString();
 			data.log = logMessage;
-			//data.req = req;
-			date.res = res;
+			data.req = req;
+			//date.res = res;
 			io.sockets.emit('appendlog', data);
 		}
 	});
