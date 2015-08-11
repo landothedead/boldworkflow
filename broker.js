@@ -107,8 +107,8 @@ function makeVoicePOSTCall(postObject) {
 
 	// POST based BoldChat Triggers
 	app.post('/trigger', function(req, res){
-		if (typeof req.body.StatusType !== 'undefined') {
-			if (req.body.StatusType == "1")  {
+		if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' )) {
+			if (req.body.StatusType == "0")  {
 				logMessage = "Event: Chats, Hidden Asynch Action";
 				res.send({ "result": "success" });
 				console.log(logMessage);
@@ -117,8 +117,8 @@ function makeVoicePOSTCall(postObject) {
 				data.datetime= date.toISOString();
 				data.log = logMessage;
 				io.sockets.emit('appendlog', data);
-			} else if (req.body.StatusType == "2")  {
-				logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+")";
+			} else if (typeof req.body.ActiveChats !== 'undefined' ) {
+				logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
 				res.send({ "result": "success" });
 				console.log(logMessage);
 				var date = new Date();
