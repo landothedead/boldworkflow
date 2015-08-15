@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 
 var PORT = Number(process.env.PORT || 3000);
-server.listen(port);
+server.listen(PORT);
 
 var AID = process.env.AID || 0;
 var APISETTINGSID = process.env.AID || 0;
