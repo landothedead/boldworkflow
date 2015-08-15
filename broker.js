@@ -1,27 +1,20 @@
 var http = require('http');
-
-var fs = require('fs');
-//var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-//var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
-//var credentials = {key: "123", cert: "123"};
-
 var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
-	//servers = require('http').createServer(credentials,app),
 	io = require('socket.io').listen(server);
-
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-var port = Number(process.env.PORT || 3000);
+var PORT = Number(process.env.PORT || 3000);
 server.listen(port);
-//servers.listen(3443);
 
-
+var AID = process.env.AID || 0;
+var APISETTINGSID = process.env.AID || 0;
+var KEY = process.env.AID || 0; 
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
@@ -29,7 +22,7 @@ app.get('/', function(req, res){
 
 // Wrapper function to simulated BoldChat GET microservice
 function makeBoldChatGETCall(getString) {
-	var optionsget = { host : 'localhost', port : 3001, path : '/get', method : 'GET'};
+	var optionsget = { host : 'localhost', PORT : 3001, path : '/get', method : 'GET'};
 	var requestGet = http.request(this.optionsget, function(res) {
 		console.log("statusCode: ", res.statusCode);
 		res.on('data', function(d) {
