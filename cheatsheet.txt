@@ -1,6 +1,14 @@
+
+heroku login
+
+git pull
+
 git add .
-git commit -m "updated x"
+git commit -m "updated 2"
 git push origin master
 git push heroku master
-git pull
+
+heroku logs --tail
+
+
 
