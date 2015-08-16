@@ -28,7 +28,6 @@ if (AID == 0 || APISETTINGSID == 0 || KEY == 0) {
 var fs = require('fs');
 eval(fs.readFileSync('hmac-sha512.js')+'');
 var https = require('https');
-var boldChatCallResponse = {};
 function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams,callBackFunction) {
 	var auth = AID + ':' + APISETTINGSID + ':' + (new Date()).getTime();
 	var authHash = auth + ':' + CryptoJS.SHA512(auth + KEY).toString(CryptoJS.enc.Hex);
@@ -38,26 +37,34 @@ function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams,callBackFunct
 		path : '/aid/'+AID+'/data/rest/json/v1/'+method+'?auth='+authHash+'&'+getParams, 
 		method : 'GET'
 	};
-	
 	https.request(options, callBackFunction).end();
 }
 
-getDepartments = function(response) {
-		var str = '';
-		//another chunk of data has been recieved, so append it to `str`
-		response.on('data', function (chunk) {
-			str += chunk;
-		});
-		//the whole response has been recieved, take final action.
-		response.on('end', function () {
-			boldChatCallResponse = {};
-			//boldChatCallResponse.response = JSON.parse(str);
-			//boldChatCallResponse.response = str;
-			boldChatCallResponse.response = JSON.parse(str);
-			console.log(boldChatCallResponse);
-		});
-	}
-boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',getDepartments);
+function logEvent(logMessage, jsonPayload) {
+	var date = new Date();
+	var data = {};
+	data.datetime= date.toISOString();
+	data.log = logMessage;
+	data.body = jsonPayload;
+	io.sockets.emit('appendlog', data);
+}
+
+// get initial data to build BoldChat state
+var departments = {};
+initGetDepartments = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		departments = JSON.parse(str);
+		logEvent('initGetDepartments', departments)
+
+	});
+}
+boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',initGetDepartments);
 
 
 var pageviews = 0;
