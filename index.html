@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 16<br>
+	Rev 17<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -196,16 +196,16 @@
 				socket.emit(getoperators,{});
 			});
 			$("#loaddepartments").click(function(e) {
-				socket.emit(getoperators,{});
+				socket.emit(loaddepartments,{});
 			});
 			$("#getactivechats").click(function(e) {
-				socket.emit(getoperators,{});
+				socket.emit(getactivechats,{});
 			});
 			$("#selectdepartment").click(function(e) {
-				socket.emit(getoperators,{});
+				socket.emit(selectdepartment,{});
 			});
 			$("#setupoffloadeddepartment").click(function(e) {
-				socket.emit(getoperators,{});
+				socket.emit(setupoffloadeddepartment,{});
 			});
 
 			// Code to change Universal Operator State

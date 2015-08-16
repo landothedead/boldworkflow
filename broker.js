@@ -218,7 +218,7 @@ io.sockets.on('connection', function(socket){
 		} else if (data.channel == "Voice") {
 			data.boldchatstate = "Away";
 			data.voicestate = "Available";
-		} else if (data.channel == "Blended") {
+		} else if (data.channel == "Blended") { 
 			data.boldchatstate = "Available";
 			data.voicestate = "Available";
 		}
