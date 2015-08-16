@@ -56,7 +56,7 @@ function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
 	}
 	https.request(options, callback).end();
 }
-boldChatCall(https,AID,APISETTINGSID,KEY,'getOperatorAvailability','ServiceTypeID=1');
+boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','');
 
 
 var pageviews = 0;
