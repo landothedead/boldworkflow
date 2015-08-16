@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 32<br>
+	Rev 33<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -228,9 +228,10 @@
 			});
 
 			socket.on('operatorupdate', function(data){
-				alert("operatorupdate event received.\n\n"+JSON.stringify(data));
+				//alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 				operators = data.Data;
-				alert(operators.length);
+				//alert(operators.length);
+				$("#operatorstate").html('');
 				for (var i = 0; i < operators.length; ++i) {
 					if (operators[i].ClientID != null)  {
 						$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+operators[i].StatusType+'</span></span></div>');
