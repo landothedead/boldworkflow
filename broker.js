@@ -51,6 +51,7 @@ function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
 			boldChatCallResponse.getParams = getParams;
 			boldChatCallResponse.response = JSON.parse(str)
 			console.log(boldChatCallResponse);
+			io.sockets.emit('appendlog', boldChatCallResponse);
 		});
 	}
 	https.request(options, callback).end();
