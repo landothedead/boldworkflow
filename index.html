@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 30<br>
+	Rev 31<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -168,15 +168,6 @@
 		</div>
 		<center><h2>Operator/Session State</h2></center><br>
 		<div id="operatorstate">
-			<div class="operatorstateentry">
-				<span class="uid">mark.troyer.demo</span>
-				<span class="boldchatstatewrapper">
-					BoldChat State: 
-					<span class="boldchatstate">
-						Available
-					</span>
-				</span>
-			</div>
 		</div>
 	</div>
 	Note:  The Universal Agent State of a given operator can be toggled by clicking the Chat/Voice/Blended/Away text above.
@@ -242,22 +233,15 @@
 				alert(operators.length);
 				for (var i = 0; i < operators.length; ++i) {
 					if (operators[i].ClientID != null)  {
-						alert(operators[i].UserName);
+						$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+operators[i].StatusType+'</span></span></div>'
+						//alert(operators[i].UserName);
 					}
 				}
 
 /*
 
 		<div id="operatorstate">
-			<div class="operatorstateentry">
-				<span class="uid">mark.troyer.demo</span>
-				<span class="boldchatstatewrapper">
-					BoldChat State: 
-					<span class="boldchatstate">
-						Available
-					</span>
-				</span>
-			</div>
+			<div class="operatorstateentry"><span class="uid">mark.troyer.demo</span><span class="boldchatstatewrapper"><span class="boldchatstate">Available</span></span></div>
 		</div>
 */
 
