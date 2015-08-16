@@ -58,7 +58,7 @@ getDepartments = function(response) {
 			console.log(boldChatCallResponse);
 		});
 	}
-boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',foo);
+boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',getDepartments);
 
 
 var pageviews = 0;
