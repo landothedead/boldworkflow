@@ -1,14 +1,19 @@
 
 heroku login
 
+git remote -v
+heroku git:remote -a boldworkflow
+
 git pull
 
 git add .
-git commit -m "updated 2"
+git commit -m "updated x"
 git push origin master
 git push heroku master
 
+
 heroku logs --tail
+heroku restart
 
 
 

@@ -1,3 +1,4 @@
+// Set up Express Server
 var http = require('http');
 var express = require('express'),
 	app = express(),
@@ -9,18 +10,53 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
+// Get port used by Heroku
 var PORT = Number(process.env.PORT || 3000);
 server.listen(PORT);
 
+// Get BoldChat API Credentials stored in Heroku environmental variables
 var AID = process.env.AID || 0;
 var APISETTINGSID = process.env.AID || 0;
-var KEY = process.env.AID || 0; 
- 
+var KEY = process.env.AID || 0;
 if (AID == 0 || APISETTINGSID == 0 || KEY == 0) {
 	console.log("AID = "+AID+", APISETTINGSID = "+APISETTINGSID+", KEY = "+KEY);
 	console.log("BoldChat API Environmental Variables not set in HEROKU App.  Please verify..");
 	process.exit(1);
 }
+
+//  Set up code for outbound BoldChat API calls
+var fs = require('fs');
+eval(fs.readFileSync('hmac-sha512.js')+'');
+var https = require('https');
+var boldChatCallResponse = {};
+function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
+	var auth = AID + ':' + APISETTINGSID + ':' + (new Date()).getTime();
+	var authHash = auth + ':' + CryptoJS.SHA512(auth + KEY).toString(CryptoJS.enc.Hex);
+	var options = {
+		host : 'api.boldchat.com', 
+		port : 443, 
+		path : '/aid/'+AID+'/data/rest/json/v1/'+method+'?auth='+authHash+'&'+getParams, 
+		method : 'GET'
+	};
+	callback = function(response) {
+		var str = '';
+		//another chunk of data has been recieved, so append it to `str`
+		response.on('data', function (chunk) {
+			str += chunk;
+		});
+		//the whole response has been recieved, so we just print it out here
+		response.on('end', function () {
+			boldChatCallResponse = {};
+			boldChatCallResponse.method = method;
+			boldChatCallResponse.getParams = getParams;
+			boldChatCallResponse.response = JSON.parse(str)
+			console.log(boldChatCallResponse);
+		});
+	}
+	https.request(options, callback).end();
+}
+boldChatCall(https,AID,APISETTINGSID,KEY,'getOperatorAvailability','ServiceTypeID=1');
+
 
 var pageviews = 0;
 
