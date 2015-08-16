@@ -52,8 +52,23 @@ function logEvent(logMessage, jsonPayload) {
 
 // get initial data to build BoldChat state
 var departments = {};
+var activeDepartment = '4309786320420724690';
+var operators = {};
+var activeChats = {};
+
+getoperators = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		operators = JSON.parse(str);
+		logEvent('getoperators', operators);
+	});
+}
 loaddepartments = function(response) {
-	
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -62,8 +77,41 @@ loaddepartments = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		departments = JSON.parse(str);
-		console.log("loaddepartments callback\n"+str);
 		logEvent('loaddepartments', departments);
+	});
+}
+getactivechats  = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		activeChats = JSON.parse(str);
+		logEvent('activeChats', activeChats);
+	});
+}
+setupoffloadeddepartment = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		logEvent('setupoffloadeddepartment', JSON.parse(str));
+	});
+}
+resetoffloadeddepartment = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		logEvent('setupoffloadeddepartment', JSON.parse(str));
 	});
 }
 
@@ -192,20 +240,22 @@ app.post('/post', function(req, res){
 io.sockets.on('connection', function(socket){
 
 	socket.on('getoperators', function(data){
-
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getOperatorAvailability','ServiceTypeID=1',getoperators);
 	});
 	socket.on('loaddepartments', function(data){
-		console.log("loaddepartments call received from index.html");
 		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',loaddepartments);
 	});
 	socket.on('getactivechats', function(data){
-
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+activeDepartment,getactivechats);
 	});
 	socket.on('selectdepartment', function(data){
-
+		activeDepartment = data;
 	});
 	socket.on('setupoffloadeddepartment', function(data){
-
+		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+activeDepartment+'&Enable=false',setupoffloadeddepartment); 
+	});
+	socket.on('resetoffloadeddepartment', function(data){
+		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+activeDepartment+'&Enable=true',resetoffloadeddepartment); 
 	});
 
 	socket.on('changeuniversalstate', function(data){
