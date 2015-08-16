@@ -51,8 +51,8 @@ getDepartments = function(response) {
 		//the whole response has been recieved, so we just print it out here
 		response.on('end', function () {
 			boldChatCallResponse = {};
-			boldChatCallResponse.method = method;
-			boldChatCallResponse.getParams = getParams;
+			//boldChatCallResponse.method = method;
+			//boldChatCallResponse.getParams = getParams;
 			//boldChatCallResponse.response = JSON.parse(str);
 			boldChatCallResponse.response = str;
 			console.log(boldChatCallResponse);
