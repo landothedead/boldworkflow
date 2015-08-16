@@ -29,7 +29,7 @@ var fs = require('fs');
 eval(fs.readFileSync('hmac-sha512.js')+'');
 var https = require('https');
 var boldChatCallResponse = {};
-function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
+function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams,callBackFunction) {
 	var auth = AID + ':' + APISETTINGSID + ':' + (new Date()).getTime();
 	var authHash = auth + ':' + CryptoJS.SHA512(auth + KEY).toString(CryptoJS.enc.Hex);
 	var options = {
@@ -38,7 +38,11 @@ function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
 		path : '/aid/'+AID+'/data/rest/json/v1/'+method+'?auth='+authHash+'&'+getParams, 
 		method : 'GET'
 	};
-	callback = function(response) {
+	
+	https.request(options, callBackFunction).end();
+}
+
+getDepartments = function(response) {
 		var str = '';
 		//another chunk of data has been recieved, so append it to `str`
 		response.on('data', function (chunk) {
@@ -49,14 +53,12 @@ function boldChatCall(https,AID,APISETTINGSID,KEY,method,getParams) {
 			boldChatCallResponse = {};
 			boldChatCallResponse.method = method;
 			boldChatCallResponse.getParams = getParams;
-			boldChatCallResponse.response = JSON.parse(str)
+			//boldChatCallResponse.response = JSON.parse(str);
+			boldChatCallResponse.response = str;
 			console.log(boldChatCallResponse);
-			io.sockets.emit('appendlog', boldChatCallResponse);
 		});
 	}
-	https.request(options, callback).end();
-}
-boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','');
+boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',foo);
 
 
 var pageviews = 0;
