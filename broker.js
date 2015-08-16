@@ -48,13 +48,12 @@ getDepartments = function(response) {
 		response.on('data', function (chunk) {
 			str += chunk;
 		});
-		//the whole response has been recieved, so we just print it out here
+		//the whole response has been recieved, take final action.
 		response.on('end', function () {
 			boldChatCallResponse = {};
-			//boldChatCallResponse.method = method;
-			//boldChatCallResponse.getParams = getParams;
 			//boldChatCallResponse.response = JSON.parse(str);
-			boldChatCallResponse.response = str;
+			//boldChatCallResponse.response = str;
+			boldChatCallResponse.response = JSON.parse(str);
 			console.log(boldChatCallResponse);
 		});
 	}
