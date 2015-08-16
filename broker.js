@@ -52,7 +52,7 @@ function logEvent(logMessage, jsonPayload) {
 
 // get initial data to build BoldChat state
 var departments = {};
-getDepartments = function(response) {
+loaddepartments = function(response) {
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -61,7 +61,7 @@ getDepartments = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		departments = JSON.parse(str);
-		logEvent('initGetDepartments', departments);
+		logEvent('loaddepartments', departments);
 	});
 }
 
@@ -193,7 +193,7 @@ io.sockets.on('connection', function(socket){
 
 	});
 	socket.on('loaddepartments', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',getDepartments);
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',loaddepartments);
 	});
 	socket.on('getactivechats', function(data){
 
@@ -231,6 +231,3 @@ io.sockets.on('connection', function(socket){
 
 });
 
-
-
-//setInterval (function () {makeBoldChatPOSTCall({ "method": "setOperatorState", "operator": 123456789, "state": "Available"})}, 5000);
