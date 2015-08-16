@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 24<br>
+	Rev 25<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -233,7 +233,7 @@
 
 			socket.on('operatorupdate', function(data){
 				//*** add logic to update list of operators
-				alert("operatorupdate event received.\n\n"+data);
+				alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 			});
 
 			socket.on('updateuxchangeboldchatstate', function(data){
