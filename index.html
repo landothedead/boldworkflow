@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 20<br>
+	Rev 21<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -197,7 +197,7 @@
 			});
 			$("#loaddepartments").click(function(e) {
 				alert("loaddepartments clicked");
-				socket.emit(loaddepartments,{});
+				socket.emit('loaddepartments',{});
 			});
 			$("#getactivechats").click(function(e) {
 				socket.emit(getactivechats,{});
