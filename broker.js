@@ -53,6 +53,7 @@ function logEvent(logMessage, jsonPayload) {
 // get initial data to build BoldChat state
 var departments = {};
 loaddepartments = function(response) {
+	
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -61,6 +62,7 @@ loaddepartments = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		departments = JSON.parse(str);
+		console.log("loaddepartments callback\n"+str);
 		logEvent('loaddepartments', departments);
 	});
 }
@@ -193,6 +195,7 @@ io.sockets.on('connection', function(socket){
 
 	});
 	socket.on('loaddepartments', function(data){
+		console.log("loaddepartments call received from index.html");
 		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',loaddepartments);
 	});
 	socket.on('getactivechats', function(data){
