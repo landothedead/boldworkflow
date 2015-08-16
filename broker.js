@@ -18,8 +18,8 @@ server.listen(PORT);
 var AID = process.env.AID || 0;
 var APISETTINGSID = process.env.AID || 0;
 var KEY = process.env.AID || 0;
+console.log("AID = "+AID+", APISETTINGSID = "+APISETTINGSID+", KEY = "+KEY);
 if (AID == 0 || APISETTINGSID == 0 || KEY == 0) {
-	console.log("AID = "+AID+", APISETTINGSID = "+APISETTINGSID+", KEY = "+KEY);
 	console.log("BoldChat API Environmental Variables not set in HEROKU App.  Please verify..");
 	process.exit(1);
 }
