@@ -1,9 +1,15 @@
 # boldworkflow
-Demonstration of BoldChat Workflow APIs
+Boldworkflow is a reference code set that demonstrates the BoldChat 8.0 WorkFlow API features.  More information on this feature can be found a http://help.boldchat.com/help/BoldChat/c_bc_api_workflow.html.
 
-broker.js:  This script runs the main brokerage service between the chat and voice micro services.  It is responsible for the sychronication of state between both system.   A helper index.html file has been added to view the state of the broker.
+This code demonstrates 2 primary use cases: Operator status control/monitoring and offboard operator routing of incoming chat sessions.  This code has been build so that it can be easily cloned an run against an BoldChat account using a free Heroku account.
 
-voicesim.js:  This script simulates the activities of a voice system.  If this reference code were to be integrated with a production voice system, this script would be deprecated.
+THe project is currently under development so documentaiotn is still minimal.  The main two files used in the sample broker application include the following:
 
-boldchatsim:  This script simulates the BoldChat micros servcies.  This script will be deprecated once the Workflow API is available in production.
+broker.js:  This script acts as a broker to the BoldChat service.  It accepts events from the BoldChat service, makes API calls to change config settings or acquire informaiton, and serves up data to a web page.
+
+index.html:  This is an HTML page with included javascript to accept and send data to the broker.ja file.
+
+As mentioned before, development is currently in progress.  Please email mtroyer@logmein.com with any comments.
+
+
 
