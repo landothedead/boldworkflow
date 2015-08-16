@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 25<br>
+	Rev 26<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -191,6 +191,11 @@
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
+	// get initial data to build BoldChat state
+		var departments = {};
+		var activeDepartment = '4309786320420724690';
+		var operators = {};
+		var activeChats = {};
 		jQuery(function($){
 			var socket = io.connect();
 
@@ -232,8 +237,31 @@
 			});
 
 			socket.on('operatorupdate', function(data){
-				//*** add logic to update list of operators
-				alert("operatorupdate event received.\n\n"+JSON.stringify(data));
+				operators = data;
+				for(var i = 0; i < operators.length; ++i) {
+				   for(key in operators[i]) {
+						if (operators[i].ClientID != null)  {
+							alert(operators[i].UserName);
+						}
+				   }
+				}
+
+/*
+
+		<div id="operatorstate">
+			<div class="operatorstateentry">
+				<span class="uid">mark.troyer.demo</span>
+				<span class="boldchatstatewrapper">
+					BoldChat State: 
+					<span class="boldchatstate">
+						Available
+					</span>
+				</span>
+			</div>
+		</div>
+*/
+
+				//alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 			});
 
 			socket.on('updateuxchangeboldchatstate', function(data){
