@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 28<br>
+	Rev 29<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -240,12 +240,10 @@
 				alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 				operators = data.Data;
 				alert(operators.length);
-				for(var i = 0; i < operators.length; ++i) {
-				   for(key in operators[i]) {
-						if (operators[key].ClientID != null)  {
-							alert(operators[key].UserName);
-						}
-				   }
+				for(var i = 0; i < operators.length; ++i) 
+					if (operators[i].ClientID != null)  {
+						alert(operators[i].UserName);
+					}
 				}
 
 /*
