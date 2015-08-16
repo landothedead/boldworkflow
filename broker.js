@@ -67,7 +67,7 @@ app.get('/', function(req, res){
 	console.log("PAGEVIEWS = "+pageviews);
 });
 
-// Wrapper function to simulated BoldChat GET microservice
+// Wrapper function to simulated BoldChat GET microservicex
 function makeBoldChatGETCall(getString) {
 	var optionsget = { host : 'localhost', PORT : 3001, path : '/get', method : 'GET'};
 	var requestGet = http.request(this.optionsget, function(res) {
