@@ -143,7 +143,7 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 22<br>
+	Rev 23<br>
 	<div id="operatorstateframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
@@ -231,8 +231,9 @@
 				});
 			});
 
-			socket.on('updateuxchangeuniversalstate', function(data){
-				$(".uid:contains('"+data.uid+"')").parent().find(".universalstate").html(data.channel);
+			socket.on('operatorupdate', function(data){
+				//*** add logic to update list of operators
+				alert("operatorupdate event received.\n\n"+data
 			});
 
 			socket.on('updateuxchangeboldchatstate', function(data){

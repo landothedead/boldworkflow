@@ -65,7 +65,8 @@ getoperators = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		operators = JSON.parse(str);
-		logEvent('getoperators', operators);
+		//***  Parse through operators and remove those with out a device ID.
+		io.sockets.emit('operatorupdate', operators);
 	});
 }
 loaddepartments = function(response) {
@@ -111,7 +112,7 @@ resetoffloadeddepartment = function(response) {
 	});
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
-		logEvent('setupoffloadeddepartment', JSON.parse(str));
+		logEvent('resetoffloadeddepartment', JSON.parse(str));
 	});
 }
 
