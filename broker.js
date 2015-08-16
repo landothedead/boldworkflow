@@ -18,8 +18,9 @@ server.listen(PORT);
 var AID = process.env.AID || 0;
 var APISETTINGSID = process.env.APISETTINGSID || 0;
 var KEY = process.env.KEY || 0;
-console.log("AID = "+AID+", APISETTINGSID = "+APISETTINGSID+", KEY = "+KEY);
+
 if (AID == 0 || APISETTINGSID == 0 || KEY == 0) {
+	console.log("AID = "+AID+", APISETTINGSID = "+APISETTINGSID+", KEY = "+KEY);
 	console.log("BoldChat API Environmental Variables not set in HEROKU App.  Please verify..");
 	process.exit(1);
 }
@@ -51,7 +52,7 @@ function logEvent(logMessage, jsonPayload) {
 
 // get initial data to build BoldChat state
 var departments = {};
-initGetDepartments = function(response) {
+getDepartments = function(response) {
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -60,12 +61,9 @@ initGetDepartments = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		departments = JSON.parse(str);
-		logEvent('initGetDepartments', departments)
-
+		logEvent('initGetDepartments', departments);
 	});
 }
-boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',initGetDepartments);
-
 
 var pageviews = 0;
 
@@ -75,233 +73,137 @@ app.get('/', function(req, res){
 	console.log("PAGEVIEWS = "+pageviews);
 });
 
-// Wrapper function to simulated BoldChat GET microservicex
-function makeBoldChatGETCall(getString) {
-	var optionsget = { host : 'localhost', PORT : 3001, path : '/get', method : 'GET'};
-	var requestGet = http.request(this.optionsget, function(res) {
-		console.log("statusCode: ", res.statusCode);
-		res.on('data', function(d) {
-			console.info('GET result:\n');
-			process.stdout.write(d);
-			console.info('\n\nCall completed');
-		});
-	});
-	reqGet.end();
-	reqGet.on('error', function(e) {
-		console.error(e);
-	});
-}
-
-// Wrapper function to simulated BoldChat POST microservice
-function makeBoldChatPOSTCall(postObject) {
-	//console.info(postObject);
-	var jsonPostObject = JSON.stringify(postObject);
-	var postHeaders = {'Content-Type' : 'application/json','Content-Length' : Buffer.byteLength(jsonPostObject, 'utf8')};
-	var optionspost = { host : 'localhost', port : 3001, path : '/post', method : 'POST', headers : postHeaders };
-	//console.info(optionspost);
-	var reqPost = http.request(optionspost, function(res) {
-		//console.log("statusCode: ", res.statusCode);
-		res.on('data', function(d) {
-			//console.info('POST result:\n');
-			//process.stdout.write(d);
-			//console.info('\n\nPOST completed');
-		});
-	});
-	//console.info("sending "+jsonPostObject)
-
-	reqPost.write(jsonPostObject);
-	reqPost.end();
-	reqPost.on('error', function(e) {
-		console.error(e);
-	});
-}
-
-// Wrapper function to simulated Voice GET microservice
-function makeVoiceGETCall(getString) {
-	var optionsget = { host : 'localhost', port : 3002, path : '/get', method : 'GET'};
-	var requestGet = http.request(this.optionsget, function(res) {
-		console.log("statusCode: ", res.statusCode);
-		res.on('data', function(d) {
-			console.info('GET result:\n');
-			process.stdout.write(d);
-			console.info('\n\nCall completed');
-		});
-	});
-	reqGet.end();
-	reqGet.on('error', function(e) {
-		console.error(e);
-	});
-}
-
-// Wrapper function to simulated Voice POST microservice
-function makeVoicePOSTCall(postObject) {
-	var jsonPostObject = JSON.stringify(postObject);
-	var postHeaders = {'Content-Type' : 'application/json','Content-Length' : Buffer.byteLength(jsonPostObject, 'utf8')};
-	var optionspost = { host : 'localhost', port : 3002, path : '/post', method : 'POST', headers : postHeaders };
-	var reqPost = http.request(optionspost, function(res) {
-		console.log("statusCode: ", res.statusCode);
-		res.on('data', function(d) {
-			console.info('POST result:\n');
-			process.stdout.write(d);
-			console.info('\n\nPOST completed');
-		});
-	});
-	reqPost.write(jsonPostObject);
-	reqPost.end();
-	reqPost.on('error', function(e) {
-		console.error(e);
-	});
-}
-
-	// POST based BoldChat Triggers
-	app.post('/trigger', function(req, res){
+// POST based BoldChat Triggers
+app.post('/trigger', function(req, res){
+	console.log(req.body);
+	if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' ) || (typeof req.body.ChatType !== 'undefined' )) {
+		if (typeof req.body.ChatType !== 'undefined' )  {
+			logMessage = "Event: Chats, Hidden Asynch Action";
+			res.send({ "result": "success" });
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			data.body = req.body;
+			io.sockets.emit('appendlog', data);
+		} else if (typeof req.body.ActiveChats !== 'undefined' ) {
+			logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
+			res.send({ "result": "success" });
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			data.body = req.body;
+			io.sockets.emit('appendlog', data);
+		}  else if (typeof req.body.StatusType !== 'undefined' )  {
+			logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+","+req.body.StatusType+")";
+			res.send({ "result": "success" });
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			data.body = req.body;
+			io.sockets.emit('appendlog', data);
+		}
+	} else {
+		logMessage = "Unrecognized /trigger event. ";
+		res.send({ "result": "error", "error": "no method"});
 		console.log(req.body);
-		if ((typeof req.body.StatusType !== 'undefined' ) || (typeof req.body.ActiveChats !== 'undefined' ) || (typeof req.body.ChatType !== 'undefined' )) {
-			if (typeof req.body.ChatType !== 'undefined' )  {
-				logMessage = "Event: Chats, Hidden Asynch Action";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.body = req.body;
-				io.sockets.emit('appendlog', data);
-			} else if (typeof req.body.ActiveChats !== 'undefined' ) {
-				logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.body = req.body;
-				io.sockets.emit('appendlog', data);
-			}  else if (typeof req.body.StatusType !== 'undefined' )  {
-				logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+","+req.body.StatusType+")";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.body = req.body;
-				io.sockets.emit('appendlog', data);
-			}
-		} else {
-			logMessage = "Unrecognized /trigger event. ";
-			res.send({ "result": "error", "error": "no method"});
-			console.log(req.body);
+		var date = new Date();
+		var data = {};
+		data.datetime= date.toISOString();
+		data.log = logMessage;
+		data.body = req.body;
+		io.sockets.emit('appendlog', data);
+	}
+});
+
+// POST based microservices events
+app.post('/post', function(req, res){
+	if (typeof req.body.method !== 'undefined') {
+		if (req.body.method == "boldchatRoutingRequest")  { // Incoming BoldChat routing request
+			logMessage = "Incoming Routing Request: routeID="+req.body.routeID+", routeData="+req.body.routeData;
+			res.send({ "result": "success" });
+			console.log(logMessage);
 			var date = new Date();
 			var data = {};
 			data.datetime= date.toISOString();
 			data.log = logMessage;
-			data.body = req.body;
 			io.sockets.emit('appendlog', data);
-		}
-	});
+			makeBoldChatPOSTCall({ "method": "assignChat", "routeID": req.body.routeID, "operator": "mark.troyer.demo"})
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = "Replying to Routing Request: routeID="+req.body.routeID+", operator=mark.troyer.demo";
+			console.log(data.log);
+			console.log(" ");
+			io.sockets.emit('appendlog', data);
+			
 
-	// POST based microservices events
-	app.post('/post', function(req, res){
-		if (typeof req.body.method !== 'undefined') {
-			if (req.body.method == "boldchatRoutingRequest")  { // Incoming BoldChat routing request
-				logMessage = "Incoming Routing Request: routeID="+req.body.routeID+", routeData="+req.body.routeData;
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				io.sockets.emit('appendlog', data);
-				makeBoldChatPOSTCall({ "method": "assignChat", "routeID": req.body.routeID, "operator": "mark.troyer.demo"})
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = "Replying to Routing Request: routeID="+req.body.routeID+", operator=mark.troyer.demo";
-				console.log(data.log);
-				console.log(" ");
-				io.sockets.emit('appendlog', data);
-				
-
-			} else if (req.body.method == "boldchatSessionStarted")  {
-				logMessage = "/post, method boldchatSessionStarted received.";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				io.sockets.emit('appendlog', data);
-			} else if (req.body.method == "boldchatSessionEnded")  {
-				logMessage = "/post, method boldchatSessionEnded received.";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				io.sockets.emit('appendlog', data);
-			} else if (req.body.method == "voiceOperatorUpdate")  {
-				logMessage = "Incoming Voice operator state change: operrator="+req.body.operator+", state="+req.body.state;
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.voicestate = req.body.state;
-				data.uid = req.body.operator;
-				io.sockets.emit('updateuxchangevoicestate', data);
-				io.sockets.emit('appendlog', data);
-			} else if (req.body.method == "voiceSessionStarted")  {
-				logMessage = "Incoming Voice call started by operator "+req.body.operator;
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				data.voicestate = req.body.state;
-				data.uid = req.body.operator;
-				io.sockets.emit('updateuxchangevoicestate', data);
-				io.sockets.emit('appendlog', data);
-			} else if (req.body.method == "voiceSessionEnded")  {
-				logMessage = "/post, method voiceSessionEnded received.";
-				res.send({ "result": "success" });
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				io.sockets.emit('appendlog', data);
-			} else {
-				logMessage = "/post, no method stated.";
-				res.send({ "result": "error", "error": "no method"});
-				console.log(logMessage);
-				var date = new Date();
-				var data = {};
-				data.datetime= date.toISOString();
-				data.log = logMessage;
-				io.sockets.emit('appendlog', data);
-			}
-		} else {
-			logMessage = "Unrecognized /post event. ";
-			res.send({ "result": "error", "error": "no method"});
-			console.log(req.body);
-			//console.log(logMessage+req);
+		} else if (req.body.method == "boldchatSessionStarted")  {
+			logMessage = "/post, method boldchatSessionStarted received.";
+			res.send({ "result": "success" });
+			console.log(logMessage);
 			var date = new Date();
 			var data = {};
 			data.datetime= date.toISOString();
 			data.log = logMessage;
-			data.body = req.body;
-			//date.res = res;
+			io.sockets.emit('appendlog', data);
+		} else if (req.body.method == "boldchatSessionEnded")  {
+			logMessage = "/post, method boldchatSessionEnded received.";
+			res.send({ "result": "success" });
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
+			io.sockets.emit('appendlog', data);
+
+		} else {
+			logMessage = "/post, no method stated.";
+			res.send({ "result": "error", "error": "no method"});
+			console.log(logMessage);
+			var date = new Date();
+			var data = {};
+			data.datetime= date.toISOString();
+			data.log = logMessage;
 			io.sockets.emit('appendlog', data);
 		}
-	});
-
-
+	} else {
+		logMessage = "Unrecognized /post event. ";
+		res.send({ "result": "error", "error": "no method"});
+		console.log(req.body);
+		//console.log(logMessage+req);
+		var date = new Date();
+		var data = {};
+		data.datetime= date.toISOString();
+		data.log = logMessage;
+		data.body = req.body;
+		//date.res = res;
+		io.sockets.emit('appendlog', data);
+	}
+});
 
 io.sockets.on('connection', function(socket){
+
+	socket.on('getoperators', function(data){
+
+	});
+	socket.on('loaddepartments', function(data){
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',getDepartments);
+	});
+	socket.on('getactivechats', function(data){
+
+	});
+	socket.on('selectdepartment', function(data){
+
+	});
+	socket.on('setupoffloadeddepartment', function(data){
+
+	});
 
 	socket.on('changeuniversalstate', function(data){
 		var date = new Date();

@@ -6,6 +6,18 @@
 		background-color: gray;
 		padding: 10px;
 	}
+	.commandbuttons {
+		background-color: gray;
+		padding: 10px;
+		width:100%;
+		display: inline-block;
+	}
+	.commandbuttonentry {
+		background-color: blue;
+		color: white;
+		margin: 10px;
+		padding: 10px;
+	}
 	#logbutton {
 		display: none;
 		background-color: red;
@@ -131,121 +143,34 @@
   <title>Workflow Demonstration</title>
  </head>
  <body>
-	Rev 14<br>
+	Rev 16<br>
 	<div id="operatorstateframe">
-		<center><h2>Operator State</h2></center><br>
+		<center><h2>Command Buttons</h2></center><br>
+		<div class="commandbuttons">
+			<span class="commandbuttonentry" id="getoperators">
+				Get Operators
+			</span>
+			<span class="commandbuttonentry" id="loaddepartments">
+				Load Departments
+			</span>
+			<span class="commandbuttonentry" id="getactivechats">
+				Get Active Chats
+			</span>
+			<span class="commandbuttonentry" id="selectdepartment">
+				Select Department
+			</span>
+			<span class="commandbuttonentry" id="setupoffloadeddepartment">
+				Setup Offloaded Department for Chat Routing
+			</span>
+		</div>
+		<center><h2>Operator/Session State</h2></center><br>
 		<div id="operatorstate">
 			<div class="operatorstateentry">
-				<span class="uid">ross.haskell.demo</span>
-				<span class="voicestatewrapper">
-					Voice State: 
-					<span class="voicestateactivity">
-						No Call
-					</span>
-					<span class="voicestate">
-						Away
-					</span>
-
-				</span>
-				<span class="boldchatstatewrapper">
-					BoldChat State: 
-					<span class="boldchatstateactivity">
-						1 chat(s)
-					</span>
-					<span class="boldchatstate">
-						Available
-					</span>
-				</span>
-				<span class="universalstatewrapper">
-					Universal Agent State:
-					<span class="universalstate">
-						Chat
-					</span>
-				</span>
-			</div>
-			<div class="operatorstateentry">
 				<span class="uid">mark.troyer.demo</span>
-								<span class="voicestatewrapper">
-					Voice State: 
-					<span class="voicestateactivity">
-						No Call
-					</span>
-					<span class="voicestate">
-						Away
-					</span>
-
-				</span>
 				<span class="boldchatstatewrapper">
 					BoldChat State: 
-					<span class="boldchatstateactivity">
-						0 chat(s)
-					</span>
 					<span class="boldchatstate">
 						Available
-					</span>
-				</span>
-				<span class="universalstatewrapper">
-					Universal Agent State:
-					<span class="universalstate">
-						Blended
-					</span>
-				</span>
-				
-			</div>
-			<div class="operatorstateentry">
-				<span class="uid">coty.smith.demo</span>
-								<span class="voicestatewrapper">
-					Voice State: 
-					<span class="voicestateactivity">
-						Call
-					</span>
-					<span class="voicestate">
-						Available
-					</span>
-
-				</span>
-				<span class="boldchatstatewrapper">
-					BoldChat State: 
-					<span class="boldchatstateactivity">
-						0 chat(s)
-					</span>
-					<span class="boldchatstate">
-						Away
-					</span>
-				</span>
-				<span class="universalstatewrapper">
-					Universal Agent State:
-					<span class="universalstate">
-						Blended
-					</span>
-				</span>
-				
-			</div>
-			<div class="operatorstateentry">
-				<span class="uid">david.hammer.demo</span>
-								<span class="voicestatewrapper">
-					Voice State: 
-					<span class="voicestateactivity">
-						No Call
-					</span>
-					<span class="voicestate">
-						Available
-					</span>
-
-				</span>
-				<span class="boldchatstatewrapper">
-					BoldChat State: 
-					<span class="boldchatstateactivity">
-						0 chat(s)
-					</span>
-					<span class="boldchatstate">
-						Logged Out
-					</span>
-				</span>
-				<span class="universalstatewrapper">
-					Universal Agent State:
-					<span class="universalstate">
-						Voice
 					</span>
 				</span>
 			</div>
@@ -265,6 +190,23 @@
 	<script>
 		jQuery(function($){
 			var socket = io.connect();
+
+			// Set up button actions
+			$("#getoperators").click(function(e) {
+				socket.emit(getoperators,{});
+			});
+			$("#loaddepartments").click(function(e) {
+				socket.emit(getoperators,{});
+			});
+			$("#getactivechats").click(function(e) {
+				socket.emit(getoperators,{});
+			});
+			$("#selectdepartment").click(function(e) {
+				socket.emit(getoperators,{});
+			});
+			$("#setupoffloadeddepartment").click(function(e) {
+				socket.emit(getoperators,{});
+			});
 
 			// Code to change Universal Operator State
 			$(".universalstate").each(function() {
