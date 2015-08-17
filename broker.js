@@ -154,17 +154,17 @@ app.post('/trigger-operator-status-change', function(req, res){
 	io.sockets.emit('operatorupdate', req.body);
 });
 app.post('/trigger-chats-chatisstarted', function(req, res){
-	logMessage = "Event: Chat is started ("+req.body.UserName+","+req.body.StatusType+")";
+	logMessage = "Event: Chat is started ("+req.body.OperatorID")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-chatisanswered', function(req, res){
-	logMessage = "Event: Chat is answered("+req.body.UserName+","+req.body.StatusType+")";
+	logMessage = "Event: Chat is answered ("+req.body.OperatorID")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-startedchatwasclosed', function(req, res){
-	logMessage = "Event: Chat was closed ("+req.body.UserName+","+req.body.StatusType+")";
+	logMessage = "Event: Chat was closed ("+req.body.OperatorID")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
 });
@@ -193,7 +193,7 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID,setoperatoravailability);
 
 		// io.sockets.emit('operatorupdate', req.body); // may not be needed because of trigger event.
-		io.sockets.emit('appendlog', data);
+		logEvent("Webpage Event: Change status of operator requested", req.data);
 	});
 
 });
