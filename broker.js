@@ -193,7 +193,7 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID,setoperatoravailability);
 
 		// io.sockets.emit('operatorupdate', req.body); // may not be needed because of trigger event.
-		logEvent("Webpage Event: Change status of operator requested", data);
+		logEvent("Webpage Event: Change status of operator requested, "+'OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID, data);
 	});
 
 });
