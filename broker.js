@@ -50,6 +50,9 @@ function logEvent(logMessage, jsonPayload) {
 	io.sockets.emit('appendlog', data);
 }
 
+
+
+
 // get initial data to build BoldChat state
 var departments = {};
 var activeDepartment = '4309786320420724690';
@@ -116,13 +119,19 @@ resetoffloadeddepartment = function(response) {
 	});
 }
 
-var pageviews = 0;
-
+// CALL BACKS
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
-	pageviews = pageviews+1;
-	console.log("PAGEVIEWS = "+pageviews);
 });
+
+app.get('/index.js', function(req, res){
+	res.sendFile(__dirname + '/index.js');
+});
+
+app.get('/index.css', function(req, res){
+	res.sendFile(__dirname + '/index.css');
+});
+
 
 // POST based BoldChat Triggers
 app.post('/trigger', function(req, res){
