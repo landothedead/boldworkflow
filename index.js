@@ -56,9 +56,11 @@ jQuery(function($){
 	});
 
 	socket.on('operatorupdate', function(data){
-		alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
-		$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
-		});
+		//alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
+		if (data.StatusType != 0) {
+			$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
+		}
+	});
 
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
