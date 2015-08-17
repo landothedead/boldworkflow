@@ -58,6 +58,7 @@ jQuery(function($){
 	socket.on('operatorupdate', function(data){
 		//alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
 		if (data.StatusType != 0) {
+			alert($(".uid:contains("+data.UserName+")"));
 			if ($(".uid:contains("+data.UserName+")")== null) {
 				socket.emit('getoperators',{});
 			} else {
