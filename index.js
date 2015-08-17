@@ -71,7 +71,7 @@ jQuery(function($){
 		$("#selectdepartment").html('');
 		var htmlstanza = '<select name="department" id="department">';
 		for (var i = 0; i < departments.length; ++i) {
-			htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'</option>';
+			htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'/'+departments[i].DepartmentID+'</option>';
 		}
 		htmlstanza = htmlstanza + '</select>';
 		$("#selectdepartment").html(htmlstanza);
