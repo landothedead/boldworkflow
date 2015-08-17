@@ -78,7 +78,7 @@ jQuery(function($){
 			}
 		}
 		htmlstanza = htmlstanza + '</select>';
-		$("#selectdepartment").append(htmlstanza);
+		$("#selectdepartment").html(htmlstanza);
 	});
 
 	socket.on('appendlog', function(data){
