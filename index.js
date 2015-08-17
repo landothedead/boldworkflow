@@ -81,15 +81,6 @@ jQuery(function($){
 		$("#selectdepartment").append(htmlstanza);
 	});
 
-
-			<span class="commandbuttonentry" id="selectdepartment">
-				<select name="department" id="department">
-				  <option value="4309786320420724690" selected >ALL Sales-English</option>
-				  <option value="1527520907078270927">ALL Support-English</option>
-				</select>
-			</span>
-
-
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
 		if (count > 8) {
