@@ -45,13 +45,13 @@ jQuery(function($){
 				$(this).click(function(e){
 					var UserName= $(this).parent().parent().find(".uid").html();
 					var OperatorID= $(this).parent().parent().find(".operatorid").html();
+					alert(OperatorID);
 					var ClientID= $(this).parent().parent().find(".clientid").html();
 					if ($(this).html() == "Available")  {
 						var StatusType = 1;  // Set to Away
 					} else {
 						var StatusType = 2;  // Set to Available
 					}
-					//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
 					socket.emit('operatorupdate', { "UserName": UserName, "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
 				});
 		});
