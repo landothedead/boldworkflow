@@ -56,16 +56,9 @@ jQuery(function($){
 	});
 
 	socket.on('operatorupdate', function(data){
+		alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
 		$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
 		});
-
-	socket.on('updateuxchangeboldchatstate', function(data){
-		$(".uid:contains('"+data.uid+"')").parent().find(".boldchatstate").html(data.boldchatstate);
-	});
-
-	socket.on('updateuxchangevoicestate', function(data){
-		$(".uid:contains('"+data.uid+"')").parent().find(".voicestate").html(data.voicestate);
-	});
 
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
