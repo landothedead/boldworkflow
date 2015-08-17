@@ -65,8 +65,8 @@ getoperators = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		operators = JSON.parse(str);
-		logEvent('operatorupdate response', operators);
-		io.sockets.emit('operatorupdate', operators);
+		logEvent('operatormassupdate response', operators);
+		io.sockets.emit('operatormassupdate', operators);
 	});
 }
 loaddepartments = function(response) {
@@ -140,6 +140,7 @@ app.post('/trigger-operator-status-change', function(req, res){
 	logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+","+req.body.StatusType+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
+	io.sockets.emit('operatorupdate', req.body);
 });
 app.post('/trigger-chats-chatisstarted', function(req, res){
 	logMessage = "Event: Chat is started ("+req.body.UserName+","+req.body.StatusType+")";

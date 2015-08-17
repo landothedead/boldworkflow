@@ -43,27 +43,21 @@ jQuery(function($){
 		});
 	});
 
-	socket.on('operatorupdate', function(data){
+	socket.on('operatormassupdate', function(data){
 		//alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 		operators = data.Data;
 		//alert(operators.length);
 		$("#operatorstate").html('');
 		for (var i = 0; i < operators.length; ++i) {
 			if (operators[i].ClientID != null)  {
-				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
-				//alert(operators[i].UserName);
+				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/'+operators[i].ClientID+'<span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
 			}
 		}
-
-/*
-
-<div id="operatorstate">
-	<div class="operatorstateentry"><span class="uid">mark.troyer.demo</span><span class="boldchatstatewrapper"><span class="boldchatstate">Available</span></span></div>
-</div>
-*/
-
-		//
 	});
+
+	socket.on('operatorupdate', function(data){
+		$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
+		});
 
 	socket.on('updateuxchangeboldchatstate', function(data){
 		$(".uid:contains('"+data.uid+"')").parent().find(".boldchatstate").html(data.boldchatstate);
