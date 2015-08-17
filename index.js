@@ -68,4 +68,4 @@ jQuery(function($){
 		}
 		$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span><br>'+JSON.stringify(data)+'</div>');
 	});
-});
+}); 

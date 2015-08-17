@@ -196,5 +196,5 @@ io.sockets.on('connection', function(socket){
 		logEvent("Webpage Event: Change status of operator requested, ", data);
 	});
 
-});
+}); 
 
