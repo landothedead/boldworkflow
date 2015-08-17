@@ -26,20 +26,18 @@ jQuery(function($){
 		socket.emit('resetoffloadeddepartment',{});
 	});
 
-	// Code to change Universal Operator State
-	$(".universalstate").each(function() {
+	// Change state of single BoldChat operator
+	$(".boldchatstate").each(function() {
 		$(this).click(function(e){
-			var uid = $(this).parent().parent().find(".uid").html();
-			if ($(this).html() == "Chat")  {
-				var channel = "Voice";
-			} else if ($(this).html() == "Voice")  {
-				var channel = "Blended";
-			} else if ($(this).html() == "Blended")  {
-				var channel = "Away";
+			var OperatorID= $(this).parent().parent().find(".uid").html();
+			var ClientID= $(this).parent().parent().find(".clientid").html();
+			if ($(this).html() == "Available")  {
+				var StatusType = 1;  // Set to Away
 			} else {
-				var channel = "Chat";
+				var StatusType = 2;  // Set to Available
 			}
-			socket.emit('changeuniversalstate', { "uid": uid, "channel": channel});
+			//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
+			socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": });
 		});
 	});
 
@@ -50,7 +48,7 @@ jQuery(function($){
 		$("#operatorstate").html('');
 		for (var i = 0; i < operators.length; ++i) {
 			if (operators[i].ClientID != null)  {
-				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/'+operators[i].ClientID+'<span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
+				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
 			}
 		}
 	});
@@ -69,4 +67,9 @@ jQuery(function($){
 		}
 		$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span><br>'+JSON.stringify(data)+'</div>');
 	});
+
+	// Get things started 
+	socket.emit('getoperators',{});
+	socket.emit('loaddepartments',{});
+	socket.emit('getactivechats',{});
 });

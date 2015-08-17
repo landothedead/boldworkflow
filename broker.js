@@ -115,8 +115,19 @@ resetoffloadeddepartment = function(response) {
 		logEvent('resetoffloadeddepartment response ', JSON.parse(str));
 	});
 }
+setoperatoravailability  = function(response) {
+	var str = '';
+	//another chunk of data has been recieved, so append it to `str`
+	response.on('data', function (chunk) {
+		str += chunk;
+	});
+	//the whole response has been recieved, take final action.
+	response.on('end', function () {
+		logEvent('setoperatoravailability response ', JSON.parse(str));
+	});
+}
 
-// CALL BACKS
+// File load callbacks
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
@@ -130,7 +141,7 @@ app.get('/index.css', function(req, res){
 });
 
 
-// POST based BoldChat Triggers
+// POST based BoldChat Trigger event callbacks
 app.post('/trigger-operator-count-change', function(req, res){
 	logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
 	res.send({ "result": "success" });
@@ -178,23 +189,10 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+activeDepartment+'&Enable=true',resetoffloadeddepartment); 
 	});
 
-	socket.on('changeuniversalstate', function(data){
-		var date = new Date();
-		data.datetime= date.toISOString();
-		data.log = "Changed "+data.uid+" to Universal State:  "+data.channel;
-		if (data.channel == "Away") {
-			data.boldchatstate = "Away";
-			data.voicestate = "Away";
-		} else if (data.channel == "Chat") {
-			data.boldchatstate = "Available";
-			data.voicestate = "Away";
-		} else if (data.channel == "Voice") {
-			data.boldchatstate = "Away";
-			data.voicestate = "Available";
-		} else if (data.channel == "Blended") { 
-			data.boldchatstate = "Available";
-			data.voicestate = "Available";
-		}
+	socket.on('operatorupdate', function(data){
+		boldChatCall(https,AID,APISETTINGSID,KEY,'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID,setoperatoravailability);
+
+		// io.sockets.emit('operatorupdate', req.body); // may not be needed because of trigger event.
 		io.sockets.emit('appendlog', data);
 	});
 
