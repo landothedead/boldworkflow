@@ -78,7 +78,7 @@ loaddepartments = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		departments = JSON.parse(str);
-		io.sockets.emit('departmentupdate', operators);
+		io.sockets.emit('departmentupdate', departments);
 		logEvent('loaddepartments response', departments);
 	});
 }
