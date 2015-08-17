@@ -38,7 +38,7 @@ jQuery(function($){
 		$("#operatorstate").html('');
 		for (var i = 0; i < operators.length; ++i) {
 			if (operators[i].ClientID != null)  {
-				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span> (<span class=operatorid">'+operators[i].LoginID+'</span>)<span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
+				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span> (<span class=operatorid>'+operators[i].LoginID+'</span>)<span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
 			}
 		}
 		$(".boldchatstate").each(function() {
