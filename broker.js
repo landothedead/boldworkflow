@@ -135,27 +135,27 @@ app.post('/trigger-operator-count-change', function(req, res){
 	logMessage = "Event: Operators, Operator Chat Count Changed ("+req.body.UserName+","+req.body.ActiveChats+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
-}
+});
 app.post('/trigger-operator-status-change', function(req, res){
 	logMessage = "Event: Operators, Operator Status Changed ("+req.body.UserName+","+req.body.StatusType+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
-}
+});
 app.post('/trigger-chats-chatisstarted', function(req, res){
 	logMessage = "Event: Chat is started ("+req.body.UserName+","+req.body.StatusType+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
-}
+});
 app.post('/trigger-chats-chatisanswered', function(req, res){
 	logMessage = "Event: Chat is answered("+req.body.UserName+","+req.body.StatusType+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
-}
+});
 app.post('/trigger-chats-startedchatwasclosed', function(req, res){
 	logMessage = "Event: Chat was closed ("+req.body.UserName+","+req.body.StatusType+")";
 	res.send({ "result": "success" });
 	logEvent(logMessage, req.body);
-}
+});
 
 io.sockets.on('connection', function(socket){
 	socket.on('getoperators', function(data){
