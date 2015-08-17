@@ -72,6 +72,7 @@ jQuery(function($){
 		departments = data.Data;
 		$("#selectdepartment").html('');
 		var htmlstanza = '<select name="department" id="department">';
+		alert(departments.length);
 		for (var i = 0; i < departments.length; ++i) {
 			if (departments[i].ClientID != null)  {
 				htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'</option>';
