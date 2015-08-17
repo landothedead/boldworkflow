@@ -187,7 +187,7 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+data.DepartmentID+'&Enable=false',turnoffacd); 
 	});
 	socket.on('turnonacd', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+data.DepartmentID+'&Enable=true',turnonacd); 
+		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+data.DepartmentID+'&Enable=true',turnonacd);  
 	});
 
 	socket.on('operatorupdate', function(data){

@@ -23,7 +23,6 @@ jQuery(function($){
 		socket.emit('getactivechats',{});
 	});
 	$("#turnoffacd").click(function(e) {
-		alert($("#department").val());
 		socket.emit('turnoffacd',{ "DepartmentID": $("#department").val()});
 	});
 	$("#turnonacd").click(function(e) {
