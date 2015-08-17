@@ -67,6 +67,29 @@ jQuery(function($){
 		
 		// write code for case of deletion
 	});
+
+	socket.on('departmentupdate', function(data){
+		departments = data.Data;
+		$("#selectdepartment").html('');
+		var htmlstanza = '<select name="department" id="department">';
+		for (var i = 0; i < departments.length; ++i) {
+			if (departments[i].ClientID != null)  {
+				htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'</option>';
+			}
+		}
+		htmlstanza = htmlstanza + '</select>';
+		$("#selectdepartment").append(htmlstanza);
+	});
+
+
+			<span class="commandbuttonentry" id="selectdepartment">
+				<select name="department" id="department">
+				  <option value="4309786320420724690" selected >ALL Sales-English</option>
+				  <option value="1527520907078270927">ALL Support-English</option>
+				</select>
+			</span>
+
+
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
 		if (count > 8) {
