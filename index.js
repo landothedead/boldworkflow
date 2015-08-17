@@ -6,6 +6,12 @@ var activeChats = {};
 jQuery(function($){
 	var socket = io.connect();
 
+
+	// Get things started 
+	socket.emit('getoperators',{});
+	socket.emit('loaddepartments',{});
+	socket.emit('getactivechats',{});
+
 	// Set up button actions
 	$("#getoperators").click(function(e) {
 		socket.emit('getoperators',{});
@@ -29,7 +35,6 @@ jQuery(function($){
 	// Change state of single BoldChat operator
 	$(".boldchatstate").each(function() {
 		$(this).click(function(e){
-			
 			var OperatorID= $(this).parent().parent().find(".uid").html();
 			var ClientID= $(this).parent().parent().find(".clientid").html();
 			if ($(this).html() == "Available")  {
@@ -70,8 +75,5 @@ jQuery(function($){
 		$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span><br>'+JSON.stringify(data)+'</div>');
 	});
 
-	// Get things started 
-	socket.emit('getoperators',{});
-	socket.emit('loaddepartments',{});
-	socket.emit('getactivechats',{});
+
 });
