@@ -1,4 +1,4 @@
-// get initial data to build BoldChat state
+// get initial data to build BoldChat state 
 var departments = {};
 var activeDepartment = '4309786320420724690';
 var operators = {};
