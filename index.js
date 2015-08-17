@@ -38,21 +38,22 @@ jQuery(function($){
 		$("#operatorstate").html('');
 		for (var i = 0; i < operators.length; ++i) {
 			if (operators[i].ClientID != null)  {
-				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
+				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span> (<span class=operatorid">'+operators[i].LoginID+'</span>)<span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
 			}
 		}
 		$(".boldchatstate").each(function() {
 				$(this).click(function(e){
-					var OperatorID= $(this).parent().parent().find(".uid").html();
+					var UserName= $(this).parent().parent().find(".uid").html();
+					var OperatorID= $(this).parent().parent().find(".operatorid").html();
 					var ClientID= $(this).parent().parent().find(".clientid").html();
 					if ($(this).html() == "Available")  {
 						var StatusType = 1;  // Set to Away
 					} else {
 						var StatusType = 2;  // Set to Available
 					}
-					alert("status clicked, OperatorID="+OperatorID+" ClientID="+ClientID+" StatusType="+StatusType);
+					alert("status clicked, UserName="+UserName+", OperatorID="+OperatorID+" ClientID="+ClientID+" StatusType="+StatusType);
 					//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
-					socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
+					socket.emit('operatorupdate', { "UserName": UserName, "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
 				});
 		});
 	});
