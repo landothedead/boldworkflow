@@ -58,8 +58,14 @@ jQuery(function($){
 	socket.on('operatorupdate', function(data){
 		//alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
 		if (data.StatusType != 0) {
+			if ($(".uid:contains("+data.UserName+")")== null) {
+				socket.emit('getoperators',{});
+			} else {
 			$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
+			}
 		}
+		
+		// write code for case of deletion
 	});
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
