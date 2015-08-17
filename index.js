@@ -29,6 +29,7 @@ jQuery(function($){
 	// Change state of single BoldChat operator
 	$(".boldchatstate").each(function() {
 		$(this).click(function(e){
+			
 			var OperatorID= $(this).parent().parent().find(".uid").html();
 			var ClientID= $(this).parent().parent().find(".clientid").html();
 			if ($(this).html() == "Available")  {
@@ -36,6 +37,7 @@ jQuery(function($){
 			} else {
 				var StatusType = 2;  // Set to Available
 			}
+			alert("status clicked, OperatorID="+OperatorID+" ClientID="+ClientID+" StatusType="+StatusType);
 			//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
 			socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
 		});
