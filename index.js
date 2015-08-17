@@ -22,12 +22,12 @@ jQuery(function($){
 	$("#getactivechats").click(function(e) {
 		socket.emit('getactivechats',{});
 	});
-	$("#setupoffloadeddepartment").click(function(e) {
+	$("#turnoffacd").click(function(e) {
 		alert($("#department").val());
-		socket.emit('setupoffloadeddepartment',{ "DepartmentID": $("#department").val()});
+		socket.emit('turnoffacd',{ "DepartmentID": $("#department").val()});
 	});
-	$("#resetoffloadeddepartment").click(function(e) {
-		socket.emit('resetoffloadeddepartment',{ "DepartmentID": $("#department").val()});
+	$("#turnonacd").click(function(e) {
+		socket.emit('turnonacd',{ "DepartmentID": $("#department").val()});
 	});
 
 
@@ -71,7 +71,7 @@ jQuery(function($){
 		$("#selectdepartment").html('');
 		var htmlstanza = '<select name="department" id="department">';
 		for (var i = 0; i < departments.length; ++i) {
-			htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'/'+departments[i].DepartmentID+'</option>';
+			htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'/'+departments[i].DepartmentID++'</option>';
 		}
 		htmlstanza = htmlstanza + '</select>';
 		$("#selectdepartment").html(htmlstanza);

@@ -94,7 +94,7 @@ getactivechats  = function(response) {
 		logEvent('getactivechats response', activeChats);
 	});
 }
-setupoffloadeddepartment = function(response) {
+turnoffacd = function(response) {
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -102,10 +102,10 @@ setupoffloadeddepartment = function(response) {
 	});
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
-		logEvent('setupoffloadeddepartment response', JSON.parse(str));
+		logEvent('turnoffacd response', JSON.parse(str));
 	});
 }
-resetoffloadeddepartment = function(response) {
+turnonacd = function(response) {
 	var str = '';
 	//another chunk of data has been recieved, so append it to `str`
 	response.on('data', function (chunk) {
@@ -113,7 +113,7 @@ resetoffloadeddepartment = function(response) {
 	});
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
-		logEvent('resetoffloadeddepartment response ', JSON.parse(str));
+		logEvent('turnonacd response ', JSON.parse(str));
 	});
 }
 setoperatoravailability  = function(response) {
@@ -183,11 +183,11 @@ io.sockets.on('connection', function(socket){
 	socket.on('selectdepartment', function(data){
 		activeDepartment = data;
 	});
-	socket.on('setupoffloadeddepartment', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+activeDepartment+'&Enable=false',setupoffloadeddepartment); 
+	socket.on('turnoffacd', function(data){
+		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+data.DepartmentID+'&Enable=false',turnoffacd); 
 	});
-	socket.on('resetoffloadeddepartment', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+activeDepartment+'&Enable=true',resetoffloadeddepartment); 
+	socket.on('turnonacd', function(data){
+		boldChatCall(https,AID,APISETTINGSID,KEY,'enableAcdForChat','DepartmentID='+data.DepartmentID+'&Enable=true',turnonacd); 
 	});
 
 	socket.on('operatorupdate', function(data){
