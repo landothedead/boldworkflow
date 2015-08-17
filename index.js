@@ -49,15 +49,25 @@ jQuery(function($){
 	});
 
 	socket.on('operatormassupdate', function(data){
-		//alert("operatorupdate event received.\n\n"+JSON.stringify(data));
 		operators = data.Data;
-		//alert(operators.length);
 		$("#operatorstate").html('');
 		for (var i = 0; i < operators.length; ++i) {
 			if (operators[i].ClientID != null)  {
 				$("#operatorstate").append('<div class="operatorstateentry"><span class="uid">'+operators[i].UserName+'</span>/<span class="clientid">'+operators[i].ClientID+'</span><span class="boldchatstatewrapper"><span class="boldchatstate">'+(operators[i].StatusType == 1 ? "Away" : "Available")+'</span></span></div>');
 			}
 		}
+		$(this).click(function(e){
+			var OperatorID= $(this).parent().parent().find(".uid").html();
+			var ClientID= $(this).parent().parent().find(".clientid").html();
+			if ($(this).html() == "Available")  {
+				var StatusType = 1;  // Set to Away
+			} else {
+				var StatusType = 2;  // Set to Available
+			}
+			alert("status clicked, OperatorID="+OperatorID+" ClientID="+ClientID+" StatusType="+StatusType);
+			//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
+			socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
+		});
 	});
 
 	socket.on('operatorupdate', function(data){
