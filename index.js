@@ -22,14 +22,12 @@ jQuery(function($){
 	$("#getactivechats").click(function(e) {
 		socket.emit('getactivechats',{});
 	});
-	$("#selectdepartment").click(function(e) {
-		socket.emit('selectdepartment',{});
-	});
 	$("#setupoffloadeddepartment").click(function(e) {
-		socket.emit('setupoffloadeddepartment',{});
+		alert($("#department").val());
+		socket.emit('setupoffloadeddepartment',{ "DepartmentID": $("#department").val()});
 	});
 	$("#resetoffloadeddepartment").click(function(e) {
-		socket.emit('resetoffloadeddepartment',{});
+		socket.emit('resetoffloadeddepartment',{ "DepartmentID": $("#department").val()});
 	});
 
 
@@ -72,7 +70,6 @@ jQuery(function($){
 		departments = data.Data;
 		$("#selectdepartment").html('');
 		var htmlstanza = '<select name="department" id="department">';
-		alert(departments.length);
 		for (var i = 0; i < departments.length; ++i) {
 			htmlstanza = htmlstanza + '<option value="'+departments[i].DepartmentID+'">'+departments[i].Name+'</option>';
 		}
