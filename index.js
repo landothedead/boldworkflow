@@ -37,7 +37,7 @@ jQuery(function($){
 				var StatusType = 2;  // Set to Available
 			}
 			//'setOperatorAvailability','OperatorID='+data.OperatorID+'ServiceTypeID='+data.ServiceTypeID+'StatusType='+data.StatusType+'ClientID='+data.ClientID+,setoperatoravailability);
-			socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": });
+			socket.emit('operatorupdate', { "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
 		});
 	});
 
