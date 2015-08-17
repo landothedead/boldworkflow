@@ -45,7 +45,6 @@ jQuery(function($){
 				$(this).click(function(e){
 					var UserName= $(this).parent().parent().find(".uid").html();
 					var OperatorID= $(this).parent().parent().find(".operatorid").html();
-					alert(OperatorID);
 					var ClientID= $(this).parent().parent().find(".clientid").html();
 					if ($(this).html() == "Available")  {
 						var StatusType = 1;  // Set to Away
@@ -56,14 +55,12 @@ jQuery(function($){
 				});
 		});
 	});
-
 	socket.on('operatorupdate', function(data){
 		//alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
 		if (data.StatusType != 0) {
 			$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
 		}
 	});
-
 	socket.on('appendlog', function(data){
 		var count = $("#eventlog").children().length;
 		if (count > 8) {
@@ -71,6 +68,4 @@ jQuery(function($){
 		}
 		$("#eventlog").prepend('<div class="eventlogentry">'+data.log+'<span class="timedate">'+data.datetime+'</span><br>'+JSON.stringify(data)+'</div>');
 	});
-
-
 });
