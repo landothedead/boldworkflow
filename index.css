@@ -16,6 +16,7 @@ body {
 	color: white; 
 	margin: 10px;
 	padding: 10px;
+	cursor: pointer;
 }
 #logbutton {
 	display: none;
@@ -42,6 +43,7 @@ body {
 	color: white;
 	margin: 10px;
 	padding: 10px;
+	cursor: pointer;
 }
 #eventlogframe {
 	background-color: gray;
