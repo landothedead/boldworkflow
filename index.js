@@ -86,7 +86,7 @@ jQuery(function($){
 		activeChats = data.Data;
 		$("#activechatsstate").html('');
 		for (var i = 0; i < activeChats.length; ++i) {
-			$("#activechatsstate").append('<div class="activechatstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
+			$("#activechatsstate").append('<div class="activechatsstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
 		}
 	});
 
