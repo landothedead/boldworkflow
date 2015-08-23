@@ -84,6 +84,20 @@ body {
 	padding: 10px;
 }
 
+.timedate {
+	padding-left:  5px;
+	padding-right:  5px;
+	margin-left: 5px;
+	background-color: yellow;
+	color: black;
+	float: right;
+}
+.uid {
+	font-size: 1.5em;
+}
+
+
+/*
 .boldchatstatewrapper {
 	padding-left:  10px;
 	padding-right:  10px;
@@ -101,21 +115,6 @@ body {
 	color: black;
 	float: right;
 }
-
-.timedate {
-	padding-left:  5px;
-	padding-right:  5px;
-	margin-left: 5px;
-	background-color: yellow;
-	color: black;
-	float: right;
-}
-.uid {
-	font-size: 1.5em;
-}
-
-
-/*
 #logbutton {
 	display: none;
 	background-color: red;
