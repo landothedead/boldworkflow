@@ -23,10 +23,10 @@ jQuery(function($){
 		socket.emit('getactivechats',{ "DepartmentID": $("#department option:selected").val() });
 	});
 	$("#turnoffacd").click(function(e) {
-		socket.emit('turnoffacd',{ "DepartmentID": $("#department").val()});
+		socket.emit('turnoffacd',{ "DepartmentID": $("#department option:selected").val()});
 	});
 	$("#turnonacd").click(function(e) {
-		socket.emit('turnonacd',{ "DepartmentID": $("#department").val()});
+		socket.emit('turnonacd',{ "DepartmentID": $("#department option:selected").val()});
 	});
 	$("#turnonoffboardrouting").click(function(e) {
 		alert("Turn ON offboard routing clicked.");
