@@ -45,6 +45,23 @@ body {
 	padding: 10px;
 	cursor: pointer;
 }
+.boldchatstatewrapper {
+	padding-left:  10px;
+	padding-right:  10px;
+	margin-left: 10px;
+	width: 100px;
+	background-color: yellow;
+	color: black;
+	float: right;
+}
+.boldchatstate {
+	padding-left:  10px;
+	padding-right:  10px;
+	margin-left: 10px;
+	background-color: yellow;
+	color: black;
+	float: right;
+}
 #activechatsstateframe {
 	background-color: gray;
 	padding: 10px;
@@ -98,23 +115,7 @@ body {
 
 
 /*
-.boldchatstatewrapper {
-	padding-left:  10px;
-	padding-right:  10px;
-	margin-left: 10px;
-	width: 100px;
-	background-color: yellow;
-	color: black;
-	float: right;
-}
-.boldchatstate {
-	padding-left:  10px;
-	padding-right:  10px;
-	margin-left: 10px;
-	background-color: yellow;
-	color: black;
-	float: right;
-}
+
 #logbutton {
 	display: none;
 	background-color: red;
