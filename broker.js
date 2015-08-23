@@ -158,19 +158,19 @@ app.post('/trigger-operator-status-change', function(req, res){
 app.post('/trigger-chats-chatisstarted', function(req, res){
 	logMessage = "Event: Chat is started ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
-	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+req.body.DepartmentID,getactivechats);
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-chatisanswered', function(req, res){
 	logMessage = "Event: Chat is answered ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
-	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+req.body.DepartmentID,getactivechats);
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-startedchatwasclosed', function(req, res){
 	logMessage = "Event: Chat was closed ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
-	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+req.body.DepartmentID,getactivechats);
 	logEvent(logMessage, req.body);
 });
 
