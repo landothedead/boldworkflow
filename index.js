@@ -83,6 +83,7 @@ jQuery(function($){
 	socket.on('activechatupdate', function(data){
 		alert(data.Data.length);
 		activeChats = data.Data;
+		alert(JSON.stringify(activeChats));
 		$("#activechatstate").html('');
 		for (var i = 0; i < activeChats.length; ++i) {
 			$("#activechatstate").append('<div class="activechatstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
