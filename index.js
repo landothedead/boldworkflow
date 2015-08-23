@@ -81,7 +81,7 @@ jQuery(function($){
 	});
 
 	socket.on('activechatupdate', function(data){
-		alert(ActiveChats);
+		alert(activeChats);
 		activeChats = data.Data;
 		$("#activechatstate").html('');
 		for (var i = 0; i < activeChats.length; ++i) {
