@@ -182,7 +182,7 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',loaddepartments);
 	});
 	socket.on('getactivechats', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+data.DepartmentID,getactivechats);
 	});
 	socket.on('selectdepartment', function(data){
 		activeDepartment = data;

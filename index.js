@@ -20,7 +20,7 @@ jQuery(function($){
 		socket.emit('loaddepartments',{});
 	});
 	$("#getactivechats").click(function(e) {
-		socket.emit('getactivechats',{});
+		socket.emit('getactivechats',{ "DepartmentID": $("#department option:selected").val() });
 	});
 	$("#turnoffacd").click(function(e) {
 		socket.emit('turnoffacd',{ "DepartmentID": $("#department").val()});
