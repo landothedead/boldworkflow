@@ -61,7 +61,7 @@ jQuery(function($){
 		$("#selectoperator").html('');
 		var htmlstanza = '<select name="operator" id="operator">';
 		for (var i = 0; i < operators.length; ++i) {
-			htmlstanza = htmlstanza + '<option value="'+operators[i].OperatorID+'">'+operators[i].UserName+'/'+operators[i].OperatorID+'</option>';
+			htmlstanza = htmlstanza + '<option value="'+operators[i].LoginID+'">'+operators[i].UserName+'/'+operators[i].LoginID+'</option>';
 		}
 		htmlstanza = htmlstanza + '</select>';
 		$("#selectoperator").html(htmlstanza);
@@ -81,6 +81,7 @@ jQuery(function($){
 	});
 
 	socket.on('activechatupdate', function(data){
+		alert(ActiveChats);
 		activeChats = data.Data;
 		$("#activechatstate").html('');
 		for (var i = 0; i < activeChats.length; ++i) {
