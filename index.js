@@ -28,6 +28,12 @@ jQuery(function($){
 	$("#turnonacd").click(function(e) {
 		socket.emit('turnonacd',{ "DepartmentID": $("#department").val()});
 	});
+	$("#turnonoffboardrouting").click(function(e) {
+		alert("Turn ON offboard routing clicked.");
+	});
+	$("#turnoffoffboardrouting").click(function(e) {
+		alert("Turn OFF offboard routing clicked.");
+	});
 
 
 	socket.on('operatormassupdate', function(data){
@@ -51,9 +57,19 @@ jQuery(function($){
 					socket.emit('operatorupdate', { "UserName": UserName, "OperatorID": OperatorID, "StatusType": StatusType, "ServiceTypeID": "1", "ClientID": ClientID });
 				});
 		});
+	
+		$("#selectoperator").html('');
+		var htmlstanza = '<select name="operator" id="operator">';
+		for (var i = 0; i < operators.length; ++i) {
+			htmlstanza = htmlstanza + '<option value="'+operatorss[i].OperatorID+'">'+operatorss[i].UserName+'/'+operators[i].OperatorID+'</option>';
+		}
+		htmlstanza = htmlstanza + '</select>';
+		$("#selectoperator").html(htmlstanza);
 	});
+	
 	socket.on('operatorupdate', function(data){
-		//alert("data.UserName="+data.UserName+", data.StatusType="+data.StatusType);
+		socket.emit('getoperators',{});
+		/*  Forget event streaming for now.  Use with StatusType=0 events only occure with logouts.  Save Code for later.
 		if (data.StatusType != 0) {
 			if ($(".uid:contains("+data.UserName+")").length == 0) {
 				socket.emit('getoperators',{});
@@ -61,8 +77,15 @@ jQuery(function($){
 			$(".uid:contains("+data.UserName+")").parent().find(".boldchatstate").html((data.StatusType == 1 ? "Away" : "Available"));
 			}
 		}
-		
-		// write code for case of deletion
+		*/
+	});
+
+	socket.on('activechatupdate', function(data){
+		activeChats = data.Data;
+		$("#activechatstate").html('');
+		for (var i = 0; i < activeChats.length; ++i) {
+			$("#activechatstate").append('<div class="activechatstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
+		}
 	});
 
 	socket.on('departmentupdate', function(data){

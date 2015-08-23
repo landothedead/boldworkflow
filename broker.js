@@ -91,6 +91,7 @@ getactivechats  = function(response) {
 	//the whole response has been recieved, take final action.
 	response.on('end', function () {
 		activeChats = JSON.parse(str);
+		io.sockets.emit('activechatupdate', activeChats);
 		logEvent('getactivechats response', activeChats);
 	});
 }
@@ -157,16 +158,19 @@ app.post('/trigger-operator-status-change', function(req, res){
 app.post('/trigger-chats-chatisstarted', function(req, res){
 	logMessage = "Event: Chat is started ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-chatisanswered', function(req, res){
 	logMessage = "Event: Chat is answered ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
 	logEvent(logMessage, req.body);
 });
 app.post('/trigger-chats-startedchatwasclosed', function(req, res){
 	logMessage = "Event: Chat was closed ("+req.body.OperatorID+")";
 	res.send({ "result": "success" });
+	boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
 	logEvent(logMessage, req.body);
 });
 
@@ -178,7 +182,7 @@ io.sockets.on('connection', function(socket){
 		boldChatCall(https,AID,APISETTINGSID,KEY,'getDepartments','',loaddepartments);
 	});
 	socket.on('getactivechats', function(data){
-		boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','DepartmentID='+activeDepartment,getactivechats);
+		boldChatCall(https,AID,APISETTINGSID,KEY,'getActiveChats','',getactivechats);
 	});
 	socket.on('selectdepartment', function(data){
 		activeDepartment = data;

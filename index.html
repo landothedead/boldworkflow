@@ -9,9 +9,9 @@
  </head>
  <body>
  <center><h1>Workflow Demonstration</h1></center><br>
-	Rev 21, Source code for this project can found at <a href="https://github.com/mtroyernl/boldworkflow" target="_blank">https://github.com/mtroyernl/boldworkflow</a><br>
+	Rev 22, Source code for this project can found at <a href="https://github.com/mtroyernl/boldworkflow" target="_blank">https://github.com/mtroyernl/boldworkflow</a><br>
 	<!-- Reconcile all classes to CSS file -->
-	<div id="operatorstateframe">
+	<div id="buttonframe">
 		<center><h2>Command Buttons</h2></center><br>
 		<div class="commandbuttons">
 			<span class="commandbuttonentry" id="getoperators">
@@ -23,27 +23,52 @@
 			<span class="commandbuttonentry" id="getactivechats">
 				Get Active Chats
 			</span>
+
 			<span class="commandbuttonentry">
 				Select Department 
 				<span id="selectdepartment">
 				</span>
 			</span>
+			<span class="commandbuttonentry">
+				Select Operator 
+				<span id="selectoperator">
+				</span>
+			</span>
+			<br>
+			<br>
+			<br>
 			<span class="commandbuttonentry" id="turnoffacd">
 				Turn OFF ACD for selected department
 			</span>
 			<span class="commandbuttonentry" id="turnonacd">
 				Turn ON ACD for selected department
 			</span>
+			<br>
+			<br>
+			<br>
+			<span class="commandbuttonentry" id="turnonoffboardrouting">
+				Turn ON offboard routing
+			</span>
+			<span class="commandbuttonentry" id="turnoffoffboardrouting">
+				Turn OFF offboard routing
+			</span>
 		</div>
-		
- 
-		<center><h2>Operator</h2></center><br>
+	</div)
+	<div id="operatorstateframe">
+		<center><h2>Operators</h2></center><br>
 		<div id="operatorstate"></div>
 		* Click on the YELLOW operator status blocks above to toggle status between Available and Away for a given operator.<br>
 	</div>
-	<div id="sessionstateframe">
-		<center><h2>Chat Sessions State</h2></center><br>
-		<div id="sessionstate"></div>
+	<div id="activechatsstateframe">
+		<center><h2>Active Chat Sessions</h2></center><br>
+		<div id="activechatsstate">
+			<div class="activechatstateentry">
+				session id, 
+				department, 
+				assigned operator id, 
+				assigned operator name
+			</div>
+		</div>
 	</div>
 	<div id="eventlogframe">
 		<center><h2>Event Log</h2></center><br>

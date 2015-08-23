@@ -5,6 +5,13 @@ body {
 	background-color: gray;
 	padding: 10px;
 }
+#buttonframe {
+	background-color: gray;
+	padding: 10px;
+	width:100%;
+	max-height: 500px;
+	display: inline-block;
+}
 .commandbuttons {
 	background-color: gray;
 	padding: 10px;
@@ -17,13 +24,6 @@ body {
 	margin: 10px;
 	padding: 10px;
 	cursor: pointer;
-}
-#logbutton {
-	display: none;
-	background-color: red;
-	padding: 10px;
-	width:15%;
-	display: inline-block;
 }
 #operatorstateframe {
 	background-color: gray;
@@ -40,6 +40,26 @@ body {
 }
 .operatorstateentry {
 	background-color: blue;
+	color: white;
+	margin: 10px;
+	padding: 10px;
+	cursor: pointer;
+}
+#activechatsstateframe {
+	background-color: gray;
+	padding: 10px;
+	width:100%;
+	max-height: 500px;
+	display: inline-block;
+}
+#activechatsstate {
+	background-color: gray;
+	padding: 10px;
+	width:100%;
+	display: inline-block;
+}
+.activechatstateentry {
+	background-color: purple;
 	color: white;
 	margin: 10px;
 	padding: 10px;
@@ -63,22 +83,7 @@ body {
 	margin: 10px;
 	padding: 10px;
 }
-.universalstatewrapper {
-	padding-left:  10px;
-	padding-right:  10px;
-	margin-left: 10px;
-	width: 250px;
-	background-color: red;
-	color: black;
-	float: right;
-}.universalstate {
-	padding-left:  10px;
-	padding-right:  10px;
-	margin-left: 10px;
-	background-color: red;
-	color: black;
-	float: right;
-}
+
 .boldchatstatewrapper {
 	padding-left:  10px;
 	padding-right:  10px;
@@ -96,6 +101,49 @@ body {
 	color: black;
 	float: right;
 }
+
+.timedate {
+	padding-left:  5px;
+	padding-right:  5px;
+	margin-left: 5px;
+	background-color: yellow;
+	color: black;
+	float: right;
+}
+.uid {
+	font-size: 1.5em;
+}
+
+
+/*
+#logbutton {
+	display: none;
+	background-color: red;
+	padding: 10px;
+	width:15%;
+	display: inline-block;
+}
+*/
+/*
+.universalstatewrapper {
+	padding-left:  10px;
+	padding-right:  10px;
+	margin-left: 10px;
+	width: 250px;
+	background-color: red;
+	color: black;
+	float: right;
+}.universalstate {
+	padding-left:  10px;
+	padding-right:  10px;
+	margin-left: 10px;
+	background-color: red;
+	color: black;
+	float: right;
+}
+*/
+
+/*
 .boldchatstateactivity {
 	padding-left:  10px;
 	padding-right:  10px;
@@ -129,14 +177,4 @@ body {
 	color: purple;
 	float: right;
 }
-.timedate {
-	padding-left:  5px;
-	padding-right:  5px;
-	margin-left: 5px;
-	background-color: yellow;
-	color: black;
-	float: right;
-}
-.uid {
-	font-size: 1.5em;
-}
+*/
