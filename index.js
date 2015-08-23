@@ -61,7 +61,9 @@ jQuery(function($){
 		$("#selectoperator").html('');
 		var htmlstanza = '<select name="operator" id="operator">';
 		for (var i = 0; i < operators.length; ++i) {
-			htmlstanza = htmlstanza + '<option value="'+operators[i].LoginID+'">'+operators[i].UserName+'/'+operators[i].LoginID+'</option>';
+			if (operators[i].ClientID) {
+				htmlstanza = htmlstanza + '<option value="'+operators[i].LoginID+'">'+operators[i].UserName+'/'+operators[i].LoginID+'</option>';
+			}
 		}
 		htmlstanza = htmlstanza + '</select>';
 		$("#selectoperator").html(htmlstanza);
@@ -81,12 +83,10 @@ jQuery(function($){
 	});
 
 	socket.on('activechatupdate', function(data){
-		alert(data.Data.length);
 		activeChats = data.Data;
-		alert(JSON.stringify(activeChats));
-		$("#activechatstate").html('');
+		$("#activechatsstate").html('');
 		for (var i = 0; i < activeChats.length; ++i) {
-			$("#activechatstate").append('<div class="activechatstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
+			$("#activechatsstate").append('<div class="activechatstateentry">ChatID='+activeChats[i].ChatID+', DepartmentID='+activeChats[i].DepartmentID+', OperatorID='+activeChats[i].OperatorID+', PageType='+activeChats[i].PageType+', ChatURL='+activeChats[i].ChatURL+'</div>');
 		}
 	});
 
