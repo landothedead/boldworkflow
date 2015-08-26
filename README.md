@@ -5,7 +5,7 @@ This code demonstrates 2 use cases:
 * Operator status control and monitoring.
 * Offboard operator routing of incoming chat sessions.  
 
-This code has been build so that it can be easily cloned an run against an BoldChat account using a free Heroku (Node JS Hosting) account.
+This code has been build so that it can be easily cloned an run against an BoldChat account using a free Heroku (Node JS Hosting) account.  Other hosting environments should also be easy to implement using this generic structure.
 
 The main files used in the sample broker application include the following:
 * broker.js:  This script acts as a broker to the BoldChat service.  It accepts events from the BoldChat service, makes API calls to change config settings or acquire informaiton, and serves up data to a web page.
